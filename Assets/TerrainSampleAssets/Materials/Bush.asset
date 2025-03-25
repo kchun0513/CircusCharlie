@@ -119,7 +119,7 @@ Material:
     - Vector1_593c5cea6c4a42e993ed03ced4685732: 0.5
     - Vector1_8651797e3e304e108dbd25f9d5a426ba: 0.5
     - Vector1_a5b8b09028ce49a39f4d090894c89e22: 0.5
-    - Vector1_a6983181c8dc4691ba6a28a34c4223a6: 1
+    - Vector1_a6983181c8dc4691ba6a28a34c4223a6: 1.91
     - Wind_Blast: 0.05
     - Wind_Intensity: 0.1
     - Wind_Ripples: 0.05
@@ -205,7 +205,7 @@ Material:
     - _ZWrite: 1
     - _ZWriteControl: 0
     m_Colors:
-    - Fade_Color: {r: 0, g: 0, b: 0, a: 0}
+    - Fade_Color: {r: 0.8862746, g: 0, b: 0, a: 1}
     - SplatA: {r: 0, g: 0, b: 0, a: 0}
     - SplatB: {r: 0, g: 0, b: 0, a: 0}
     - SplatG: {r: 0, g: 0, b: 0, a: 0}
