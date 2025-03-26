@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 #endif
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
@@ -174,6 +175,7 @@ namespace StarterAssets
             JumpAndGravity();
             GroundedCheck();
             Move();
+            CheckFallen();
         }
 
         private void LateUpdate()
@@ -377,6 +379,14 @@ namespace StarterAssets
             if (lfAngle < -360f) lfAngle += 360f;
             if (lfAngle > 360f) lfAngle -= 360f;
             return Mathf.Clamp(lfAngle, lfMin, lfMax);
+        }
+
+        private void CheckFallen() {
+            if (playerBody.transform.position.y < -1)
+            {
+                Debug.Log("플레이어 사망");
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
         }
 
         private void OnDrawGizmosSelected()

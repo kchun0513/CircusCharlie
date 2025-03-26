@@ -55,13 +55,57 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2973686185452377369}
     m_Modifications:
+    - target: {fileID: 51332723443102854, guid: abf8bcda1de8fb34784cb625c8652e69, type: 3}
+      propertyPath: m_Name
+      value: Cylinder4
+      objectReference: {fileID: 0}
+    - target: {fileID: 51332723443102854, guid: abf8bcda1de8fb34784cb625c8652e69, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 984258388953779204, guid: abf8bcda1de8fb34784cb625c8652e69, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1672665814229971283, guid: abf8bcda1de8fb34784cb625c8652e69, type: 3}
       propertyPath: m_Name
       value: FireRing (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1807429224132512892, guid: abf8bcda1de8fb34784cb625c8652e69, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2497493548278278105, guid: abf8bcda1de8fb34784cb625c8652e69, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2851296317662518313, guid: abf8bcda1de8fb34784cb625c8652e69, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3899126689209808069, guid: abf8bcda1de8fb34784cb625c8652e69, type: 3}
       propertyPath: m_IsTrigger
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6030215841235431287, guid: abf8bcda1de8fb34784cb625c8652e69, type: 3}
+      propertyPath: m_Name
+      value: Cylinder5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6030215841235431287, guid: abf8bcda1de8fb34784cb625c8652e69, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 6288954569294246260, guid: abf8bcda1de8fb34784cb625c8652e69, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6470738979789104759, guid: abf8bcda1de8fb34784cb625c8652e69, type: 3}
+      propertyPath: m_Name
+      value: Cylinder2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6470738979789104759, guid: abf8bcda1de8fb34784cb625c8652e69, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 6879166711343612805, guid: abf8bcda1de8fb34784cb625c8652e69, type: 3}
       propertyPath: m_LocalScale.x
@@ -114,6 +158,30 @@ PrefabInstance:
     - target: {fileID: 6879166711343612805, guid: abf8bcda1de8fb34784cb625c8652e69, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8352070290423467202, guid: abf8bcda1de8fb34784cb625c8652e69, type: 3}
+      propertyPath: m_Name
+      value: Cylinder3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8352070290423467202, guid: abf8bcda1de8fb34784cb625c8652e69, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 8381537447217959411, guid: abf8bcda1de8fb34784cb625c8652e69, type: 3}
+      propertyPath: m_Name
+      value: Cylinder6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8381537447217959411, guid: abf8bcda1de8fb34784cb625c8652e69, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 8783913368863054020, guid: abf8bcda1de8fb34784cb625c8652e69, type: 3}
+      propertyPath: m_Name
+      value: Cylinder1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8783913368863054020, guid: abf8bcda1de8fb34784cb625c8652e69, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

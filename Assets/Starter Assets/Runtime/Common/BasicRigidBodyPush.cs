@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BasicRigidBodyPush : MonoBehaviour
 {
@@ -31,5 +32,14 @@ public class BasicRigidBodyPush : MonoBehaviour
 
 		// Apply the push and take strength into account
 		body.AddForce(pushDir * strength, ForceMode.Impulse);
+	}
+
+	private void OnTriggerEnter(Collider other)
+	{
+		if (other.CompareTag("Obstacle")) //장애물 충돌
+		{
+			Debug.Log("플레이어 사망");
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // 현재 단계 재 로드
+		}
 	}
 }
