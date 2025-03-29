@@ -8,6 +8,7 @@ public class ObjGenController : MonoBehaviour
     public GameObject fireBasePrefab;
     public Transform spawnPoint;
     public float spawnInterval = 2f;
+    public bool isActive = true;
     private List<GameObject> fireRings = new List<GameObject>();
 
     // Start is called before the first frame update
@@ -19,7 +20,7 @@ public class ObjGenController : MonoBehaviour
     IEnumerator SpawnFireRing()
     {
         print(spawnPoint.position);
-        while (true)
+        while (isActive)
         {
             int result = Random.Range(0, 2);
             GameObject newObj;
