@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CinemachineTarget
   - Obstacle
+  - PointCheck
   layers:
   - Default
   - TransparentFX
