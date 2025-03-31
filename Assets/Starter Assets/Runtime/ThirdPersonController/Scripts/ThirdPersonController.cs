@@ -175,7 +175,6 @@ namespace StarterAssets
             JumpAndGravity();
             GroundedCheck();
             Move();
-            CheckFallen();
         }
 
         private void LateUpdate()
@@ -379,14 +378,6 @@ namespace StarterAssets
             if (lfAngle < -360f) lfAngle += 360f;
             if (lfAngle > 360f) lfAngle -= 360f;
             return Mathf.Clamp(lfAngle, lfMin, lfMax);
-        }
-
-        private void CheckFallen() {
-            if (playerBody.transform.position.y < -1)
-            {
-                Debug.Log("플레이어 사망");
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            }
         }
 
         private void OnDrawGizmosSelected()

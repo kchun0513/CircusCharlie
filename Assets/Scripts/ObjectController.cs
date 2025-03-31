@@ -7,7 +7,7 @@ public class ObjectController : MonoBehaviour
     public GameObject ObjGenerator;
     public int minSpeed;
     public int maxSpeed;
-    private int speed;
+    private int speed; 
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +23,4 @@ public class ObjectController : MonoBehaviour
     {
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
-
-
 }

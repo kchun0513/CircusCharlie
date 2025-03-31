@@ -7,8 +7,8 @@ public class ObjGenController : MonoBehaviour
     public GameObject fireRingPrefab;
     public GameObject fireBasePrefab;
     public Transform spawnPoint;
+    public PlayerManager pm;
     public float spawnInterval = 2f;
-    public bool isActive = true;
     private List<GameObject> fireRings = new List<GameObject>();
 
     // Start is called before the first frame update
@@ -20,7 +20,7 @@ public class ObjGenController : MonoBehaviour
     IEnumerator SpawnFireRing()
     {
         print(spawnPoint.position);
-        while (isActive)
+        while (!pm.getClear())
         {
             int result = Random.Range(0, 2);
             GameObject newObj;
@@ -45,6 +45,15 @@ public class ObjGenController : MonoBehaviour
                 Destroy(fireRings[i]);
                 fireRings.RemoveAt(i); // 리스트에서도 제거
             }
+        }
+    }
+
+    public void removeObstacles()
+    {
+        for (int i = fireRings.Count - 1; i >= 0; i--)
+        {
+            Destroy(fireRings[i]);
+            fireRings.RemoveAt(i);
         }
     }
 }
