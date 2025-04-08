@@ -19,11 +19,23 @@ namespace StarterAssets
 		[Header("Mouse Cursor Settings")]
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
+		private float _deadZone = 0.1f;
+		private Vector2 _lastValidMoveInput = Vector2.zero;
 
 #if ENABLE_INPUT_SYSTEM
 		public void OnMove(InputValue value)
 		{
-			MoveInput(value.Get<Vector2>());
+			Vector2 input = value.Get<Vector2>();
+
+			if (input.magnitude > _deadZone)
+			{
+				move = input;
+				_lastValidMoveInput = input;
+			}
+			else
+			{
+				move = _lastValidMoveInput; // 무효 입력일 경우 마지막 입력 유지
+			}
 		}
 
 		public void OnLook(InputValue value)

@@ -59,7 +59,7 @@ public class PlayerManager : MonoBehaviour
 
         playerDead();
 
-        yield return new WaitForSeconds(1f); 
+        yield return new WaitForSeconds(0.5f); 
         isInvincible = false;
     }
 

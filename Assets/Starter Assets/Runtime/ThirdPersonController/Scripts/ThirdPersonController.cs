@@ -117,6 +117,8 @@ namespace StarterAssets
 
         private bool _hasAnimator;
 
+        private int stopCount = 0;
+
         private bool IsCurrentDeviceMouse
         {
             get
@@ -146,6 +148,7 @@ namespace StarterAssets
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<StarterAssetsInputs>();
+            _input.analogMovement = false;
 #if ENABLE_INPUT_SYSTEM
             _playerInput = GetComponent<PlayerInput>();
 #else
@@ -231,12 +234,16 @@ namespace StarterAssets
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
-
+            Debug.Log(_input.move.magnitude);
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is no input, set the target speed to 0
-            if (_input.move == Vector2.zero) targetSpeed = 0.0f;
+            if (_input.move.magnitude < 0.1f)
+            {
+                targetSpeed = 0.0f;
+                _input.move = Vector2.zero; // 명확하게 정지
+            }
 
             // a reference to the players current horizontal velocity
             float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
