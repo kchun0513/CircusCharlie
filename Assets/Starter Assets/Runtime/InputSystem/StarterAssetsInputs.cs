@@ -30,7 +30,7 @@ namespace StarterAssets
         public void OnMove(InputValue value)
         {
             Vector2 input = value.Get<Vector2>();
-            Debug.Log("OnMove() 호출 : " + input.magnitude);
+            //Debug.Log("OnMove() 호출 : " + input.magnitude);
 
             if (input.magnitude > _deadZone)
             {
@@ -58,7 +58,7 @@ namespace StarterAssets
         {
             yield return new WaitForSeconds(delay);
             move = Vector2.zero;
-            Debug.Log("move가 0.5초간 입력 없어서 Vector2.zero로 초기화됨");
+            //Debug.Log("move가 0.5초간 입력 없어서 Vector2.zero로 초기화됨");
         }
 
 		public void OnLook(InputValue value)

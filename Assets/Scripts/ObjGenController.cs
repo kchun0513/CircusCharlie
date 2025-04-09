@@ -10,6 +10,9 @@ public class ObjGenController : MonoBehaviour
     public PlayerManager pm;
     public float spawnInterval = 2f;
     private List<GameObject> fireRings = new List<GameObject>();
+    public GameObject Player;
+    public float spawnerDistance = 100f;
+    private Vector3 spawnPosition = Vector3.zero;
 
     // Start is called before the first frame update
     void Start()
@@ -19,16 +22,19 @@ public class ObjGenController : MonoBehaviour
 
     IEnumerator SpawnFireRing()
     {
-        print(spawnPoint.position);
+        //print(spawnPoint.position);
         while (!pm.getClear())
         {
+            spawnPosition = spawnPoint.position;
+            spawnPosition.z = Player.transform.position.z + spawnerDistance;
+            Debug.Log(spawnPosition);
             int result = Random.Range(0, 2);
             GameObject newObj;
             if (result == 0) {
-                newObj = Instantiate(fireRingPrefab, spawnPoint.position, spawnPoint.rotation);
+                newObj = Instantiate(fireRingPrefab, spawnPosition, spawnPoint.rotation);
             } else
             {
-                newObj = Instantiate(fireBasePrefab, spawnPoint.position, spawnPoint.rotation);
+                newObj = Instantiate(fireBasePrefab, spawnPosition, spawnPoint.rotation);
             }
             
             fireRings.Add(newObj); 

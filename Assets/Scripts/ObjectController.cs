@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ObjectController : MonoBehaviour
 {
-    public GameObject ObjGenerator;
     public int minSpeed;
     public int maxSpeed;
     private int speed; 
@@ -14,7 +13,6 @@ public class ObjectController : MonoBehaviour
         minSpeed = -minSpeed;
         maxSpeed = -maxSpeed;
         speed = Random.Range(maxSpeed, minSpeed+1);
-        transform.position = ObjGenerator.transform.position;
         print(speed);
     }
 

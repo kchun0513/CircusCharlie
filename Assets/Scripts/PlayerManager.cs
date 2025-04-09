@@ -12,6 +12,7 @@ public class PlayerManager : MonoBehaviour
     public GameObject Player;
     public ObjGenController objCon;
     private int point = 0;
+    public int bonusPoint = 5000;
     private bool clear = false;
     public static int life = 3; // static º¯¼ö·Î º¯°æ (¾ÀÀÌ ¹Ù²î¾îµµ À¯ÁöµÊ)
     private CharacterController controller;
@@ -22,6 +23,7 @@ public class PlayerManager : MonoBehaviour
     {
         controller = Player.GetComponent<CharacterController>();
         UpdateUI();
+        StartCoroutine(DecreaseBonusOverTime());
     }
 
     private void OnTriggerEnter(Collider other)
@@ -42,6 +44,7 @@ public class PlayerManager : MonoBehaviour
         if (other.CompareTag("Finish"))
         {
             clear = true;
+            point = point + bonusPoint;
             LifeText.text = "Stage 1 Clear!";
             objCon.removeObstacles();
         }
@@ -60,7 +63,19 @@ public class PlayerManager : MonoBehaviour
         playerDead();
 
         yield return new WaitForSeconds(0.5f); 
+     
         isInvincible = false;
+    }
+
+    IEnumerator DecreaseBonusOverTime()
+    {
+        while (bonusPoint > 0 && !clear)
+        {
+            yield return new WaitForSeconds(0.2f);
+            bonusPoint -= 10;
+            if (bonusPoint < 0) bonusPoint = 0;
+            UpdateUI();
+        }
     }
 
     void playerDead()
