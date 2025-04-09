@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour
         if (other.CompareTag("PointCheck")) //장애물 충돌
         {
             point += 100; // 현재 단계 재 로드
-            Debug.Log("쩜수 : " + point);
+            Debug.Log("점수 : " + point);
             uiText.text = "Point: " + point.ToString(); // 변수 값을 UI에 표시
         }
 

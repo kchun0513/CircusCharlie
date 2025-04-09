@@ -8,6 +8,7 @@ public class PlayerManager : MonoBehaviour
 {
     public TMP_Text PointText;
     public TMP_Text LifeText;
+    public TMP_Text BonusText;
     public GameObject StartPoint;
     public GameObject Player;
     public ObjGenController objCon;
@@ -47,6 +48,8 @@ public class PlayerManager : MonoBehaviour
             point = point + bonusPoint;
             LifeText.text = "Stage 1 Clear!";
             objCon.removeObstacles();
+            GameObject deathZone = GameObject.FindWithTag("Obstacle");
+            deathZone.GetComponent<BoxCollider>().isTrigger = false;
         }
     }
 
@@ -71,7 +74,7 @@ public class PlayerManager : MonoBehaviour
     {
         while (bonusPoint > 0 && !clear)
         {
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.25f);
             bonusPoint -= 10;
             if (bonusPoint < 0) bonusPoint = 0;
             UpdateUI();
@@ -92,6 +95,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (PointText != null) { PointText.text = "POINT : " + point.ToString(); }
         if (LifeText != null) { LifeText.text = "LIFE : " + life.ToString(); }
+        if (BonusText != null) { BonusText.text = "BONUS : " + bonusPoint.ToString(); }
     }
 
     public bool getClear()

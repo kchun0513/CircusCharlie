@@ -6,12 +6,21 @@ PluginImporter:
   iconMap: {}
   executionOrder: {}
   defineConstraints: []
+<<<<<<< HEAD
+  isPreloaded: 0
+=======
   isPreloaded: 1
+>>>>>>> SCRUM-11-VR-적용-및-조작-테스트
   isOverridable: 0
   isExplicitlyReferenced: 0
   validateReferences: 1
   platformData:
   - first:
+<<<<<<< HEAD
+      Any: 
+    second:
+      enabled: 1
+=======
       : Any
     second:
       enabled: 0
@@ -32,10 +41,16 @@ PluginImporter:
       Any: 
     second:
       enabled: 0
+>>>>>>> SCRUM-11-VR-적용-및-조작-테스트
       settings: {}
   - first:
       Editor: Editor
     second:
+<<<<<<< HEAD
+      enabled: 0
+      settings:
+        DefaultValueInitialized: true
+=======
       enabled: 1
       settings:
         CPU: AnyCPU
@@ -65,6 +80,7 @@ PluginImporter:
       enabled: 0
       settings:
         CPU: None
+>>>>>>> SCRUM-11-VR-적용-및-조작-테스트
   userData: 
   assetBundleName: 
   assetBundleVariant: 

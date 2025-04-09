@@ -12,6 +12,11 @@ PluginImporter:
   validateReferences: 1
   platformData:
   - first:
+<<<<<<< HEAD
+      Any: 
+    second:
+      enabled: 1
+=======
       : Editor
     second:
       enabled: 0
@@ -22,10 +27,16 @@ PluginImporter:
       Any: 
     second:
       enabled: 0
+>>>>>>> SCRUM-11-VR-적용-및-조작-테스트
       settings: {}
   - first:
       Editor: Editor
     second:
+<<<<<<< HEAD
+      enabled: 0
+      settings:
+        DefaultValueInitialized: true
+=======
       enabled: 1
       settings:
         CPU: X86_64
@@ -36,6 +47,7 @@ PluginImporter:
     second:
       enabled: 1
       settings: {}
+>>>>>>> SCRUM-11-VR-적용-및-조작-테스트
   userData: 
   assetBundleName: 
   assetBundleVariant: 
