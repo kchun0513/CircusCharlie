@@ -44,12 +44,16 @@ public class PlayerManager : MonoBehaviour
      
         if (other.CompareTag("Finish"))
         {
-            clear = true;
-            point = point + bonusPoint;
-            LifeText.text = "Stage 1 Clear!";
-            objCon.removeObstacles();
-            GameObject deathZone = GameObject.FindWithTag("Obstacle");
-            deathZone.GetComponent<BoxCollider>().isTrigger = false;
+            if (!clear)
+            {
+                clear = true;
+                point = point + bonusPoint;
+                objCon.removeObstacles();
+                GameObject deathZone = GameObject.FindWithTag("Obstacle");
+                deathZone.GetComponent<BoxCollider>().isTrigger = false;
+                PointText.text = "POINT : " + point.ToString();
+                LifeText.text = "Stage 1 Clear!";
+            }
         }
     }
 
@@ -88,14 +92,19 @@ public class PlayerManager : MonoBehaviour
         controller.enabled = true; // 다시 활성화
         objCon.removeObstacles();
         point = 0;
+        bonusPoint = 5000;
         UpdateUI();
     }
 
     void UpdateUI()
     {
-        if (PointText != null) { PointText.text = "POINT : " + point.ToString(); }
-        if (LifeText != null) { LifeText.text = "LIFE : " + life.ToString(); }
-        if (BonusText != null) { BonusText.text = "BONUS : " + bonusPoint.ToString(); }
+        if (!clear)
+        {
+            if (PointText != null) { PointText.text = "POINT : " + point.ToString(); }
+            if (LifeText != null) { LifeText.text = "LIFE : " + life.ToString(); }
+            if (BonusText != null) { BonusText.text = "BONUS : " + bonusPoint.ToString(); }
+        }
+        
     }
 
     public bool getClear()
