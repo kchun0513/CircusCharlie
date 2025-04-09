@@ -27,6 +27,13 @@ public class Stage2_PlayerRespawn : MonoBehaviour
             Debug.Log("떨어졌습니다. 리스폰 위치로 이동 + 카운트다운 시작!");
             StartCoroutine(RespawnWithCountdown());
         }
+
+        // 고양이(또는 장애물, Obstacle)에 닿으면 리스폰 시작 (DeathZone과 동일한 방식으로 처리)
+        if (!isRespawning && hit.gameObject.CompareTag("Obstacle"))
+        {
+            Debug.Log("고양이(장애물)와 충돌했습니다. 리스폰 위치로 이동 + 카운트다운 시작!");
+            StartCoroutine(RespawnWithCountdown());
+        }
     }
 
     IEnumerator RespawnWithCountdown()
