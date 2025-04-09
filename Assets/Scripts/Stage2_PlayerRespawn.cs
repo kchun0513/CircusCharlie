@@ -1,32 +1,75 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+using System.Collections;
 
 public class Stage2_PlayerRespawn : MonoBehaviour
 {
-    // 줄 Object를 inspector에서 드래그하여 연결
-    public Transform ropeTransform;
+    public Transform ropeTransform;                   // 줄 위치
+    public TextMeshProUGUI countdownText;             // 카운트다운 UI
 
-    // 바닥과 충돌했는지 확인
-    void OnControllerColliderHit(ControllerColliderHit hit)
-{
-    if (hit.gameObject.CompareTag("DeathZone"))
+    private StarterAssets.ThirdPersonController playerController;
+    private StarterAssets.StarterAssetsInputs input;
+
+    private bool isRespawning = false;                // 리스폰 중 여부
+
+    void Start()
     {
-        Debug.Log("떨어졌습니다. 줄 위로 리스폰합니다.");
-        Respawn();
+        playerController = GetComponent<StarterAssets.ThirdPersonController>();
+        input = GetComponent<StarterAssets.StarterAssetsInputs>();
     }
-}
 
-    void Respawn()
+    void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        // 플레이어의 z 위치만 유지
+        // 바닥에 닿으면 리스폰 시작
+        if (!isRespawning && hit.gameObject.CompareTag("DeathZone"))
+        {
+            Debug.Log("떨어졌습니다. 리스폰 위치로 이동 + 카운트다운 시작!");
+            StartCoroutine(RespawnWithCountdown());
+        }
+    }
+
+    IEnumerator RespawnWithCountdown()
+    {
+        isRespawning = true;
+
+        // 1. 캐릭터 움직임 정지
+        if (playerController != null)
+            playerController.enabled = false;
+
+        // 2. 입력 강제 차단
+        if (input != null)
+            input.move = Vector2.zero;
+
+        // 3. 줄 위 리스폰 위치로 이동
         float currentZ = transform.position.z;
-
-        // 줄 x,y값을 사용 (현재 위치)
         float ropeX = ropeTransform.position.x;
-        float ropeY = ropeTransform.position.y + 1.5f;  // 줄보다 위로
-
-        // 리스폰 위치 설정
+        float ropeY = ropeTransform.position.y + 10;  // 위치 보정
         transform.position = new Vector3(ropeX, ropeY, currentZ);
+
+        // 4. 카운트다운 표시
+        countdownText.gameObject.SetActive(true);
+        for (int i = 3; i > 0; i--)
+        {
+            countdownText.text = i.ToString();
+            yield return new WaitForSeconds(1f);
+        }
+        countdownText.gameObject.SetActive(false);
+
+        // 5. 캐릭터 다시 활성화
+        if (playerController != null)
+            playerController.enabled = true;
+
+        // 6. 리스폰 완료 → 입력 허용
+        isRespawning = false;
+    }
+
+    void Update()
+    {
+        // 리스폰 중에는 입력 차단 유지
+        if (isRespawning && input != null)
+        {
+            input.move = Vector2.zero;
+        }
     }
 }
