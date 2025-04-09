@@ -29,7 +29,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2614530949880253455}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6079900222915798760
@@ -44,7 +45,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a8d54cb9238d74bbb2178a2feb3993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRingPrefab: {fileID: 2989595371793588581, guid: c57344d6505b27849b07a885e87b9afb, type: 3}
+  fireRingPrefab: {fileID: 167014942362037467, guid: abf8bcda1de8fb34784cb625c8652e69, type: 3}
   fireBasePrefab: {fileID: 4653988234476635455, guid: 81f253507915c054cba18e15136fa906, type: 3}
   spawnPoint: {fileID: 6840820997750819815}
   spawnInterval: 5
+  isActive: 1
+--- !u!1 &4976680144204477269
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2614530949880253455}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2614530949880253455
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4976680144204477269}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6840820997750819815}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

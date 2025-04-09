@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class ObjectController : MonoBehaviour
 {
-    public GameObject ObjGenerator;
-    public int speed;
+    public int minSpeed;
+    public int maxSpeed;
+    private int speed; 
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = ObjGenerator.transform.position;
-        print(transform.position);
+        minSpeed = -minSpeed;
+        maxSpeed = -maxSpeed;
+        speed = Random.Range(maxSpeed, minSpeed+1);
+        print(speed);
     }
 
     // Update is called once per frame
@@ -18,6 +21,4 @@ public class ObjectController : MonoBehaviour
     {
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
-
-
 }
