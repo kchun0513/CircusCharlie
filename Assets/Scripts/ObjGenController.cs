@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class ObjGenController : MonoBehaviour
 {
-    public GameObject fireRingPrefab;
-    public GameObject fireBasePrefab;
+   /* public GameObject fireRingPrefab;*/
+    /*public GameObject fireBasePrefab;*/
+    public List<GameObject> ObstaclePrefabs;
     public Transform spawnPoint;
-    public float spawnInterval = 2f;
+    public PlayerManager pm;
+    public float spawnInterval_max = 3f;
+    public float spawnInterval_min = 1f;
     private List<GameObject> fireRings = new List<GameObject>();
+    public GameObject Player;
+    public float spawnerDistance = 100f;
+    private Vector3 spawnPosition = Vector3.zero;
 
     // Start is called before the first frame update
     void Start()
@@ -18,20 +24,19 @@ public class ObjGenController : MonoBehaviour
 
     IEnumerator SpawnFireRing()
     {
-        print(spawnPoint.position);
-        while (true)
+        //print(spawnPoint.position);
+        while (!pm.getClear())
         {
+            spawnPosition = spawnPoint.position;
+            spawnPosition.z = Player.transform.position.z + spawnerDistance;
+            Debug.Log(spawnPosition);
             int result = Random.Range(0, 2);
+            float interval = Random.Range(spawnInterval_min, spawnInterval_max);
             GameObject newObj;
-            if (result == 0) {
-                newObj = Instantiate(fireRingPrefab, spawnPoint.position, spawnPoint.rotation);
-            } else
-            {
-                newObj = Instantiate(fireBasePrefab, spawnPoint.position, spawnPoint.rotation);
-            }
-            
+            newObj = Instantiate(ObstaclePrefabs[result], spawnPosition, spawnPoint.rotation);
+
             fireRings.Add(newObj); 
-            yield return new WaitForSeconds(spawnInterval);
+            yield return new WaitForSeconds(interval);
         }
     }
     // Update is called once per frame
@@ -44,6 +49,15 @@ public class ObjGenController : MonoBehaviour
                 Destroy(fireRings[i]);
                 fireRings.RemoveAt(i); // 리스트에서도 제거
             }
+        }
+    }
+
+    public void removeObstacles()
+    {
+        for (int i = fireRings.Count - 1; i >= 0; i--)
+        {
+            Destroy(fireRings[i]);
+            fireRings.RemoveAt(i);
         }
     }
 }

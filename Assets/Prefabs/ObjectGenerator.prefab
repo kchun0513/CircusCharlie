@@ -45,10 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a8d54cb9238d74bbb2178a2feb3993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRingPrefab: {fileID: 2989595371793588581, guid: c57344d6505b27849b07a885e87b9afb, type: 3}
+  fireRingPrefab: {fileID: 167014942362037467, guid: abf8bcda1de8fb34784cb625c8652e69, type: 3}
   fireBasePrefab: {fileID: 4653988234476635455, guid: 81f253507915c054cba18e15136fa906, type: 3}
   spawnPoint: {fileID: 6840820997750819815}
   spawnInterval: 5
+  isActive: 1
 --- !u!1 &4976680144204477269
 GameObject:
   m_ObjectHideFlags: 0

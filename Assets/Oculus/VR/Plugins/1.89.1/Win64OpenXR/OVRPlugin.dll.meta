@@ -1,0 +1,53 @@
+fileFormatVersion: 2
+guid: 1ab1fa6af9c537546a870d83f7a0d2c3
+PluginImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  iconMap: {}
+  executionOrder: {}
+  defineConstraints: []
+  isPreloaded: 0
+  isOverridable: 0
+  isExplicitlyReferenced: 0
+  validateReferences: 1
+  platformData:
+  - first:
+<<<<<<< HEAD
+      Any: 
+    second:
+      enabled: 1
+=======
+      : Editor
+    second:
+      enabled: 0
+      settings:
+        CPU: X86_64
+        OS: Windows
+  - first:
+      Any: 
+    second:
+      enabled: 0
+>>>>>>> SCRUM-11-VR-적용-및-조작-테스트
+      settings: {}
+  - first:
+      Editor: Editor
+    second:
+<<<<<<< HEAD
+      enabled: 0
+      settings:
+        DefaultValueInitialized: true
+=======
+      enabled: 1
+      settings:
+        CPU: X86_64
+        DefaultValueInitialized: true
+        OS: Windows
+  - first:
+      Standalone: Win64
+    second:
+      enabled: 1
+      settings: {}
+>>>>>>> SCRUM-11-VR-적용-및-조작-테스트
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
