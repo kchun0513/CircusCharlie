@@ -2,26 +2,15 @@ using UnityEngine;
 
 public class Stage2_CatMove : MonoBehaviour
 {
-    [Header("Movement Settings")]
-    public Transform player;         // 플레이어 Transform (Inspector에 연결)
-    public float speed = 5f;         // 고양이 이동 속도
-
-    void Start()
-    {
-        // 생성 시 플레이어를 바라보도록 설정
-        if (player != null)
-        {
-            transform.LookAt(player);
-        }
-    }
+    public float speed = 5f;  // 고양이 이동 속도
 
     void Update()
     {
-        // 현재 forward 방향으로 이동
-        transform.position += transform.forward * speed * Time.deltaTime;
+        // z축 음의 방향으로 (즉, z 값이 감소하는 방향으로) 이동
+        transform.position += new Vector3(0, 0, -speed * Time.deltaTime);
         
-        // 플레이어보다 뒤쪽에 있다면 (예: z 좌표가 작다면) 이 고양이는 지나쳤다고 판단해서 삭제
-        if(player != null && transform.position.z < player.position.z)
+        // 만약 고양이의 z 좌표가 0 이하가 되면 고양이 삭제
+        if (transform.position.z <= 0f)
         {
             Destroy(gameObject);
         }
