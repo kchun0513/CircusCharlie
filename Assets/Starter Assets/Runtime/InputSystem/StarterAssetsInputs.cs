@@ -24,6 +24,7 @@ namespace StarterAssets
 		private float _deadZone = 0.1f;
 		private Vector2 _lastValidMoveInput = Vector2.zero;
 
+
 #if ENABLE_INPUT_SYSTEM
         private Coroutine resetMoveCoroutine;
 

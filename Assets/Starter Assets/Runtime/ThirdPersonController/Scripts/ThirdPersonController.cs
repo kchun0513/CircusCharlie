@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
+using UnityEngine.XR;
 #endif
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
@@ -232,6 +232,7 @@ namespace StarterAssets
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+            Debug.Log("HMD Y rotation: " + _mainCamera.transform.eulerAngles.y);
             //Debug.Log(_input.move.magnitude);
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
@@ -277,10 +278,22 @@ namespace StarterAssets
             // move the player
             // 현재 카메라의 방향을 기준으로 이동 벡터를 변환
             Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y);
-            Vector3 moveDirection = _mainCamera.transform.TransformDirection(inputDirection);
+            Quaternion moveRotation;
 
-            // 수직 방향(Y)을 제외하고 이동
-            moveDirection.y = 0.0f;
+            // XR HMD 회전값 가져오기 헤드셋 방향 진행 250413 김충훈
+            Quaternion hmdRotation;
+            if (InputDevices.GetDeviceAtXRNode(XRNode.Head).TryGetFeatureValue(UnityEngine.XR.CommonUsages.deviceRotation, out hmdRotation))
+            {
+                float hmdY = hmdRotation.eulerAngles.y;
+                moveRotation = Quaternion.Euler(0, hmdY, 0);
+            }
+            else
+            {
+                // Fallback: 일반 카메라 회전값 사용
+                moveRotation = Quaternion.Euler(0, CinemachineCameraTarget.transform.eulerAngles.y, 0);
+            }
+
+            Vector3 moveDirection = moveRotation * inputDirection;
             moveDirection.Normalize();
 
             // 이동 적용
