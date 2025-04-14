@@ -39,4 +39,4 @@ MonoBehaviour:
   _processorFavor: 0
   systemSplashScreen: {fileID: 0}
   systemSplashScreenType: 0
-  showUPMUpdatePrompt: 1
+  showUPMUpdatePrompt: 0
