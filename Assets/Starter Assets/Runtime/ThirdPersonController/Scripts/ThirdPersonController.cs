@@ -2,6 +2,8 @@
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 using UnityEngine.XR;
+using System.Collections.Generic;
+
 #endif
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
@@ -18,6 +20,8 @@ namespace StarterAssets
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
+        public int nowStage = 0;
+        public bool UsingXRDevice = true;
 
         [Tooltip("Sprint speed of the character in m/s")]
         public float SprintSpeed = 5.335f;
@@ -105,6 +109,21 @@ namespace StarterAssets
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
 
+        // XR Controller
+        private UnityEngine.XR.InputDevice _rightController;
+        private Vector3 _lastVelocity;
+        private Vector3 _lastPosition;
+
+        private float _lastShakeTime = -1f;
+        private float _shakeCooldown = 0.5f;
+        private int _movementState = 0; // 0: 정지, 1: 걷기
+
+        private float _baseSpeed = 2.0f;
+        private float _walkSpeed = 2.0f;
+        private float _runSpeed = 5.0f;
+
+        private bool _moveTrigger = false;
+
 #if ENABLE_INPUT_SYSTEM
         private PlayerInput _playerInput;
 #endif
@@ -163,6 +182,19 @@ namespace StarterAssets
 
             AssignAnimationIDs();
 
+            //오른쪽 컨트롤러 가져오기
+            var devices = new List<UnityEngine.XR.InputDevice>();
+            InputDevices.GetDevicesAtXRNode(XRNode.RightHand, devices);
+            if (devices.Count > 0)
+            {
+                _rightController = devices[0];
+                UsingXRDevice = true;
+            } else
+            {
+                UsingXRDevice = false;
+            }
+            Debug.Log("XR디바이스 사용 여부 : " + UsingXRDevice + " 정보 : " + _rightController);
+
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
@@ -171,6 +203,28 @@ namespace StarterAssets
         private void Update()
         {
             _hasAnimator = TryGetComponent(out _animator);
+
+            if (UsingXRDevice)
+            {
+                switch (nowStage)
+                {
+                    case 1:
+                        DetectShakeGesture();
+                        DetectPullGesture();
+                        break;
+
+                    default :
+                        break;
+                }
+
+                // 현재 움직임 상태에 따라 속도 설정
+                switch (_movementState)
+                {
+                    case 0: _speed = 0f; break;
+                    case 1: _speed = _input.sprint ? _runSpeed : _walkSpeed; break;
+                }
+            }
+            
 
             RotateCamera();
             JumpAndGravity();
@@ -238,9 +292,17 @@ namespace StarterAssets
 
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is no input, set the target speed to 0
-            if (_input.move.magnitude < 0.01f)
+            if (!UsingXRDevice && _input.move.magnitude < 0.01f)
             {
                 targetSpeed = 0.0f;
+            }
+            else if (_moveTrigger) // 컨트롤러 흔들림이 감지되면
+            {
+                targetSpeed = _speed;
+            }
+            else
+            {
+                targetSpeed = 0f;
             }
 
             // a reference to the players current horizontal velocity
@@ -277,7 +339,16 @@ namespace StarterAssets
 
             // move the player
             // 현재 카메라의 방향을 기준으로 이동 벡터를 변환
-            Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y);
+            Vector3 inputDirection;
+            if (_moveTrigger)
+            {
+                // 입력이 없어도 HMD가 바라보는 방향으로 전진
+                inputDirection = new Vector3(0, 0, 1); // 정면
+            }
+            else
+            {
+                inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y);
+            }
             Quaternion moveRotation;
 
             // XR HMD 회전값 가져오기 헤드셋 방향 진행 250413 김충훈
@@ -428,6 +499,54 @@ namespace StarterAssets
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
                 AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
+            }
+        }
+
+        private void DetectShakeGesture()
+        {
+            if (_rightController.TryGetFeatureValue(UnityEngine.XR.CommonUsages.deviceVelocity, out Vector3 velocity))
+            {
+                float shakeStrength = (velocity - _lastVelocity).magnitude;
+
+                if (shakeStrength > 1.5f && Time.time - _lastShakeTime > _shakeCooldown)
+                {
+                    _lastShakeTime = Time.time;
+
+                    _movementState = 1;
+                    Debug.Log($"🔄 상태 변경: {_movementState} (0: 정지, 1: 걷기)");
+                    _moveTrigger = true;
+                    SendHapticFeedback(_rightController, 0.7f, 0.15f);
+                }
+
+                _lastVelocity = velocity;
+            }
+        }
+
+        private void DetectPullGesture()
+        {
+            if (_rightController.TryGetFeatureValue(UnityEngine.XR.CommonUsages.devicePosition, out Vector3 currentPosition))
+            {
+                float deltaZ = currentPosition.z - _lastPosition.z;
+
+                if (deltaZ < -0.05f)
+                {
+                    Debug.Log("⏬ 속도 줄이기 (몸 쪽으로 당김)");
+                    _movementState = 0;
+                    Debug.Log($"🔄 상태 변경: {_movementState} (0: 정지, 1: 걷기)");
+                    //_speed *= 0.5f;
+                    _moveTrigger = false;
+                    SendHapticFeedback(_rightController, 0.7f, 0.15f);
+                }
+
+                _lastPosition = currentPosition;
+            }
+        }
+
+        private void SendHapticFeedback(UnityEngine.XR.InputDevice device, float amplitude = 0.5f, float duration = 0.2f)
+        {
+            if (device.TryGetHapticCapabilities(out HapticCapabilities capabilities) && capabilities.supportsImpulse)
+            {
+                device.SendHapticImpulse(0, amplitude, duration);
             }
         }
     }

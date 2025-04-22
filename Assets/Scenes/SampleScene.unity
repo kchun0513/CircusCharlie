@@ -400,7 +400,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &190433282
 Transform:
   m_ObjectHideFlags: 0
@@ -1122,6 +1122,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1131962172}
+  - {fileID: 1957881252}
   m_Father: {fileID: 1111136680}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &405094202
@@ -1786,7 +1787,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1019725590
 Transform:
   m_ObjectHideFlags: 0
@@ -2809,6 +2810,10 @@ PrefabInstance:
       value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+      propertyPath: nowStage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -3385,11 +3390,11 @@ RectTransform:
   - {fileID: 862035174}
   - {fileID: 1510213375}
   - {fileID: 1566517796}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 405094201}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 2001.1}
+  m_AnchoredPosition: {x: 0, y: 1999.9824}
   m_SizeDelta: {x: 950, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1957881253
@@ -3819,7 +3824,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3287869990709283486, guid: f899469c3efb62440b22bcbef0f2d150, type: 3}
       propertyPath: spawnInterval_min
-      value: 0.5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3287869990709283486, guid: f899469c3efb62440b22bcbef0f2d150, type: 3}
       propertyPath: ObstaclePrefabs.Array.size
@@ -3863,4 +3868,3 @@ SceneRoots:
   - {fileID: 118197476}
   - {fileID: 254071557}
   - {fileID: 2007463142}
-  - {fileID: 1957881252}
