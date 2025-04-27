@@ -19,10 +19,10 @@ public class ObjGenController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(SpawnFireRing());
+        StartCoroutine(SpawnObject());
     }
 
-    IEnumerator SpawnFireRing()
+    IEnumerator SpawnObject()
     {
         //print(spawnPoint.position);
         while (!pm.getClear())
@@ -44,15 +44,15 @@ public class ObjGenController : MonoBehaviour
     {
         for (int i = fireRings.Count - 1; i >= 0; i--)
         {
-            if (fireRings[i].transform.position.z < 0) // z ÁÂÇ¥°¡ 0º¸´Ù ÀÛÀ¸¸é »èÁ¦
+            if (fireRings[i].transform.position.z < 0) // z ï¿½ï¿½Ç¥ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             {
                 Destroy(fireRings[i]);
-                fireRings.RemoveAt(i); // ¸®½ºÆ®¿¡¼­µµ Á¦°Å
+                fireRings.RemoveAt(i); // ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             }
         }
     }
 
-    public void removeObstacles()
+    public void removeObject()
     {
         for (int i = fireRings.Count - 1; i >= 0; i--)
         {

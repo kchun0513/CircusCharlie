@@ -421,29 +421,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 88890484}
-  - component: {fileID: 88890483}
+  - component: {fileID: 88890485}
   m_Layer: 0
-  m_Name: Cat Spawner
+  m_Name: ObjectGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &88890483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 88890482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 933c29d4a7b594a30a060179d8b3f9ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  catPrefab: {fileID: 2937914742738108325, guid: 5ca9f79a68abbd949a7f7ff38dddc87f, type: 3}
-  catSpawnPoint: {fileID: 786894495}
-  spawnInterval: 3
 --- !u!4 &88890484
 Transform:
   m_ObjectHideFlags: 0
@@ -459,6 +444,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 786894495}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &88890485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88890482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36a8d54cb9238d74bbb2178a2feb3993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObstaclePrefabs: []
+  spawnPoint: {fileID: 786894495}
+  pm: {fileID: 1818634136}
+  spawnInterval_max: 2.5
+  spawnInterval_min: 0.5
+  Player: {fileID: 1180169}
+  spawnerDistance: 50
 --- !u!1 &200739022
 GameObject:
   m_ObjectHideFlags: 0
@@ -723,7 +727,7 @@ GameObject:
   m_Component:
   - component: {fileID: 786894495}
   m_Layer: 0
-  m_Name: CatRespawnPoint
+  m_Name: ObjectSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1181,7 +1185,7 @@ MonoBehaviour:
   BonusText: {fileID: 1116310048}
   StartPoint: {fileID: 19354446}
   Player: {fileID: 1180169}
-  objCon: {fileID: 0}
+  objCon: {fileID: 88890485}
   bonusPoint: 5000
 --- !u!1001 &2031812409
 PrefabInstance:

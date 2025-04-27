@@ -15,10 +15,10 @@ public class PlayerManager : MonoBehaviour
     private int point = 0;
     public int bonusPoint = 5000;
     private bool clear = false;
-    public static int life = 3; // static º¯¼ö·Î º¯°æ (¾ÀÀÌ ¹Ù²î¾îµµ À¯ÁöµÊ)
+    public static int life = 3; // static ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½îµµ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
     private CharacterController controller;
-    private bool isInvincible = false; // Ãæµ¹ Áßº¹ ¹æÁö
-    //2025.04.01 ±èÃæÈÆ - ¶óÀÌÇÁ, Á¡¼ö, ½ºÅ×ÀÌÁö Å¬¸®¾î ÆÇÁ¤À» À§ÇÑ PlayerManager Ãß°¡
+    private bool isInvincible = false; // ï¿½æµ¹ ï¿½ßºï¿½ ï¿½ï¿½ï¿½ï¿½
+    //2025.04.01 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ PlayerManager ï¿½ß°ï¿½
 
     private void Start()
     {
@@ -30,13 +30,13 @@ public class PlayerManager : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!clear) {
-            if (other.CompareTag("PointCheck") && !isInvincible) // Á¡¼ö È¹µæ
+            if (other.CompareTag("PointCheck") && !isInvincible) // ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½
             {
                 point += 100;
-                Debug.Log("Á¡¼ö : " + point);
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ : " + point);
                 UpdateUI();
             }
-            if (other.CompareTag("Obstacle") && !isInvincible) // Àå¾Ö¹° Ãæµ¹
+            if (other.CompareTag("Obstacle") && !isInvincible) // ï¿½ï¿½Ö¹ï¿½ ï¿½æµ¹
             {
                 StartCoroutine(HandleObstacleCollision());
             }
@@ -48,7 +48,7 @@ public class PlayerManager : MonoBehaviour
             {
                 clear = true;
                 point = point + bonusPoint;
-                objCon.removeObstacles();
+                objCon.removeObject();
                 GameObject deathZone = GameObject.FindWithTag("Obstacle");
                 deathZone.GetComponent<BoxCollider>().isTrigger = false;
                 PointText.text = "POINT : " + point.ToString();
@@ -64,7 +64,7 @@ public class PlayerManager : MonoBehaviour
 
         if (life <= 0)
         {
-            life = 3; // ¸ðµç »ý¸í ¼ÒÁø ½Ã ÃÊ±âÈ­
+            life = 3; // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ê±ï¿½È­
         }
 
         playerDead();
@@ -87,10 +87,10 @@ public class PlayerManager : MonoBehaviour
 
     void playerDead()
     {
-        controller.enabled = false; // ÄÁÆ®·Ñ·¯ Àá½Ã ºñÈ°¼ºÈ­
+        controller.enabled = false; // ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
         Player.transform.position = StartPoint.transform.position;
-        controller.enabled = true; // ´Ù½Ã È°¼ºÈ­
-        objCon.removeObstacles();
+        controller.enabled = true; // ï¿½Ù½ï¿½ È°ï¿½ï¿½È­
+        objCon.removeObject();
         point = 0;
         bonusPoint = 5000;
         UpdateUI();

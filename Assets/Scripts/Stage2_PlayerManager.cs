@@ -47,7 +47,7 @@ public class Stage2_PlayerManager : MonoBehaviour
             {
                 clear = true;
                 point = point + bonusPoint;
-                objCon.removeObstacles();
+                objCon.removeObject();
                 GameObject deathZone = GameObject.FindWithTag("Obstacle");
                 deathZone.GetComponent<BoxCollider>().isTrigger = false;
                 PointText.text = "POINT : " + point.ToString();
@@ -89,7 +89,7 @@ public class Stage2_PlayerManager : MonoBehaviour
         controller.enabled = false; // ��Ʈ�ѷ� ��� ��Ȱ��ȭ
         Player.transform.position = StartPoint.transform.position;
         controller.enabled = true; // �ٽ� Ȱ��ȭ
-        objCon.removeObstacles();
+        objCon.removeObject();
         point = 0;
         bonusPoint = 5000;
         UpdateUI();
