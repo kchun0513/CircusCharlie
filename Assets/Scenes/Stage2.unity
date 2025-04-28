@@ -241,6 +241,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4416926081852918481, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1818634136}
+    - targetCorrespondingSourceObject: {fileID: 4416926081852918481, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1818634144}
   m_SourcePrefab: {fileID: 100100000, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
 --- !u!1 &1180169 stripped
 GameObject:
@@ -583,6 +586,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiText: {fileID: 1359839124}
   life: 3
+  cameraTransform: {fileID: 0}
+  distance: 5
+  followSpeed: 100
 --- !u!1 &579148328
 GameObject:
   m_ObjectHideFlags: 0
@@ -1187,6 +1193,21 @@ MonoBehaviour:
   Player: {fileID: 1180169}
   objCon: {fileID: 88890485}
   bonusPoint: 5000
+--- !u!114 &1818634144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8916cb62f1bc44c4cbacc1621e9be352, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  jumpHeight: 2
+  gravity: -9.81
 --- !u!1001 &2031812409
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -15,10 +15,9 @@ public class PlayerManager : MonoBehaviour
     private int point = 0;
     public int bonusPoint = 5000;
     private bool clear = false;
-    public static int life = 3; // static ������ ���� (���� �ٲ� ������)
+    public static int life = 3; 
     private CharacterController controller;
-    private bool isInvincible = false; // �浹 �ߺ� ����
-    //2025.04.01 ������ - ������, ����, �������� Ŭ���� ������ ���� PlayerManager �߰�
+    private bool isInvincible = false; 
 
     private void Start()
     {
@@ -30,13 +29,13 @@ public class PlayerManager : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!clear) {
-            if (other.CompareTag("PointCheck") && !isInvincible) // ���� ȹ��
+            if (other.CompareTag("PointCheck") && !isInvincible)
             {
                 point += 100;
                 Debug.Log("���� : " + point);
                 UpdateUI();
             }
-            if (other.CompareTag("Obstacle") && !isInvincible) // ��ֹ� �浹
+            if (other.CompareTag("Obstacle") && !isInvincible)
             {
                 StartCoroutine(HandleObstacleCollision());
             }
@@ -64,7 +63,7 @@ public class PlayerManager : MonoBehaviour
 
         if (life <= 0)
         {
-            life = 3; // ��� ���� ���� �� �ʱ�ȭ
+            life = 3;
         }
 
         playerDead();
@@ -87,9 +86,9 @@ public class PlayerManager : MonoBehaviour
 
     void playerDead()
     {
-        controller.enabled = false; // ��Ʈ�ѷ� ��� ��Ȱ��ȭ
+        controller.enabled = false; 
         Player.transform.position = StartPoint.transform.position;
-        controller.enabled = true; // �ٽ� Ȱ��ȭ
+        controller.enabled = true;
         objCon.removeObject();
         point = 0;
         bonusPoint = 5000;

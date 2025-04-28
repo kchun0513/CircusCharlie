@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 
-public class Stage2_PlayerRespawn : MonoBehaviour
+public class PlayerRespawn : MonoBehaviour
 {
     public Transform ropeTransform;                   // 줄 위치
     public TextMeshProUGUI countdownText;             // 카운트다운 UI
@@ -48,11 +48,19 @@ public class Stage2_PlayerRespawn : MonoBehaviour
         if (input != null)
             input.move = Vector2.zero;
 
-        // 3. 줄 위 리스폰 위치로 이동
+        // 3. 줄 위 리스폰 위치로 이동 (x=0, z 유지, y=ropeTransform.y + 10)
+        // CharacterController 충돌 처리를 피하기 위해 비활성화 후 위치 변경
+        var cc = GetComponent<CharacterController>();
+        if (cc != null)
+            cc.enabled = false;
+
         float currentZ = transform.position.z;
-        float ropeX = ropeTransform.position.x;
-        float ropeY = ropeTransform.position.y + 10;  // 위치 보정
-        transform.position = new Vector3(ropeX, ropeY, currentZ);
+        float respawnY = ropeTransform.position.y + 10f;
+        Vector3 spawnPosition = new Vector3(0f, respawnY, currentZ);
+        Debug.Log($"Respawning at {spawnPosition}");
+        transform.position = spawnPosition;
+
+        // Removed re-enable of CharacterController here
 
         // 4. 카운트다운 표시
         countdownText.gameObject.SetActive(true);
@@ -62,6 +70,11 @@ public class Stage2_PlayerRespawn : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
         countdownText.gameObject.SetActive(false);
+
+        // 5a. CharacterController 다시 활성화
+        cc = GetComponent<CharacterController>();
+        if (cc != null)
+            cc.enabled = true;
 
         // 5. 캐릭터 다시 활성화
         if (playerController != null)

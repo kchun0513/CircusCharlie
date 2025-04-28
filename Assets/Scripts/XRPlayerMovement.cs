@@ -10,8 +10,8 @@ public class XRPlayerMovement : MonoBehaviour
     public float jumpForce = 2.0f;
     public float gravity = -9.81f;
 
-    public InputActionProperty moveInput;  // 조이스틱 이동 입력
-    public InputActionProperty jumpInput;  // 점프 버튼 입력
+    public InputActionProperty moveInput; 
+    public InputActionProperty jumpInput;
 
     private CharacterController characterController;
     private XROrigin xrOrigin;
@@ -38,7 +38,6 @@ public class XRPlayerMovement : MonoBehaviour
                 velocity.y = 0f;
             }
 
-            // 조이스틱 이동
             Vector2 input = moveInput.action.ReadValue<Vector2>();
             Vector3 move = new Vector3(input.x, 0, input.y);
             move = xrOrigin.Camera.transform.TransformDirection(move);
@@ -46,13 +45,11 @@ public class XRPlayerMovement : MonoBehaviour
 
             characterController.Move(move * moveSpeed * Time.deltaTime);
 
-            // 점프 처리
             if (jumpInput.action.WasPressedThisFrame() && isGrounded)
             {
                 velocity.y += Mathf.Sqrt(jumpForce * -2f * gravity);
             }
 
-            /// 중력 적용
             velocity.y += gravity * Time.deltaTime;
             characterController.Move(velocity * Time.deltaTime);
         }

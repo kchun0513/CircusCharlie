@@ -17,7 +17,7 @@ public class UIManager : MonoBehaviour
     {
         if (cameraTransform == null)
         {
-            cameraTransform = Camera.main.transform; // XR 카메라
+            cameraTransform = Camera.main.transform;
         }
 
         transform.position = cameraTransform.position + cameraTransform.forward * distance;
@@ -29,24 +29,21 @@ public class UIManager : MonoBehaviour
         if (cameraTransform == null)
             return;
 
-        // 목표 위치
         Vector3 targetPosition = cameraTransform.position + cameraTransform.forward * distance;
 
-        // 부드럽게 위치 이동
         transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * followSpeed);
 
-        // 회전도 부드럽게 맞추기
         Quaternion targetRotation = Quaternion.LookRotation(transform.position - cameraTransform.position);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * followSpeed);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("PointCheck")) //장애물 충돌
+        if (other.CompareTag("PointCheck"))
         {
-            point += 100; // 현재 단계 재 로드
-            Debug.Log("점수 : " + point);
-            uiText.text = "Point: " + point.ToString(); // 변수 값을 UI에 표시
+            point += 100;
+            Debug.Log("占쏙옙占쏙옙 : " + point);
+            uiText.text = "Point: " + point.ToString();
         }
 
         if (other.CompareTag("Obstacle"))

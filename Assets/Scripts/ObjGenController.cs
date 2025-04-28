@@ -44,10 +44,10 @@ public class ObjGenController : MonoBehaviour
     {
         for (int i = fireRings.Count - 1; i >= 0; i--)
         {
-            if (fireRings[i].transform.position.z < 0) // z ��ǥ�� 0���� ������ ����
+            if (fireRings[i].transform.position.z < 0)
             {
                 Destroy(fireRings[i]);
-                fireRings.RemoveAt(i); // ����Ʈ������ ����
+                fireRings.RemoveAt(i);
             }
         }
     }
