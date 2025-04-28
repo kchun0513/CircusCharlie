@@ -46,12 +46,28 @@ public class PlayerManager : MonoBehaviour
             if (!clear)
             {
                 clear = true;
-                point = point + bonusPoint;
+                point = point + bonusPoint;                
                 objCon.removeObject();
                 GameObject deathZone = GameObject.FindWithTag("Obstacle");
-                deathZone.GetComponent<BoxCollider>().isTrigger = false;
+                // in stage2, this part error. So we check if deathZone is Null.
+                if (deathZone != null)
+                {
+                    Collider col = deathZone.GetComponent<Collider>();
+                    if (col != null)
+                    {
+                        col.isTrigger = false;
+                    }
+                    else
+                    {
+                        Debug.LogError("DeathZone has no Collider component.");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("No GameObject found with tag 'Obstacle' for deathZone.");
+                }
                 PointText.text = "POINT : " + point.ToString();
-                LifeText.text = "Stage 1 Clear!";
+                LifeText.text = "Stage Clear!";
             }
         }
     }

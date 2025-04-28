@@ -11,7 +11,7 @@ public class ObjGenController : MonoBehaviour
     public PlayerManager pm;
     public float spawnInterval_max = 3f;
     public float spawnInterval_min = 1f;
-    private List<GameObject> fireRings = new List<GameObject>();
+    private List<GameObject> Objects = new List<GameObject>();
     public GameObject Player;
     public float spawnerDistance = 100f;
     private Vector3 spawnPosition = Vector3.zero;
@@ -35,29 +35,29 @@ public class ObjGenController : MonoBehaviour
             GameObject newObj;
             newObj = Instantiate(ObstaclePrefabs[result], spawnPosition, spawnPoint.rotation);
 
-            fireRings.Add(newObj); 
+            Objects.Add(newObj); 
             yield return new WaitForSeconds(interval);
         }
     }
     // Update is called once per frame
     void Update()
     {
-        for (int i = fireRings.Count - 1; i >= 0; i--)
+        for (int i = Objects.Count - 1; i >= 0; i--)
         {
-            if (fireRings[i].transform.position.z < 0)
+            if (Objects[i].transform.position.z < 0)
             {
-                Destroy(fireRings[i]);
-                fireRings.RemoveAt(i);
+                Destroy(Objects[i]);
+                Objects.RemoveAt(i);
             }
         }
     }
 
     public void removeObject()
     {
-        for (int i = fireRings.Count - 1; i >= 0; i--)
+        for (int i = Objects.Count - 1; i >= 0; i--)
         {
-            Destroy(fireRings[i]);
-            fireRings.RemoveAt(i);
+            Destroy(Objects[i]);
+            Objects.RemoveAt(i);
         }
     }
 }

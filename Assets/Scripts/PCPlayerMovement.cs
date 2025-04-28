@@ -8,6 +8,10 @@ public class PCPlayerMovement : MonoBehaviour
     [SerializeField] float jumpHeight = 2f;
     [SerializeField] float gravity = -9.81f;
 
+    [Header("Sprint 설정")]
+    [SerializeField] float sprintSpeed = 10f;
+    bool isSprinting;
+
     CharacterController controller;
     Vector2 moveInput;
     float verticalVelocity;
@@ -34,11 +38,18 @@ public class PCPlayerMovement : MonoBehaviour
         }
     }
 
+    // Shift 눌렀을 때 스프린트 상태 토글
+    void OnSprint(InputValue value)
+    {
+        isSprinting = value.isPressed;
+    }
+
     void Update()
     {
-        // 수평 이동
+        // 스프린트 여부에 따라 속도 조절
+        float currentSpeed = isSprinting ? sprintSpeed : moveSpeed;
         Vector3 horiz = (transform.right * moveInput.x + transform.forward * moveInput.y)
-                        * moveSpeed * Time.deltaTime;
+                        * currentSpeed * Time.deltaTime;
         controller.Move(horiz);
 
         // 점프/중력 처리
