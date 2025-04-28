@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class PlayerManager : MonoBehaviour
+public class Stage2_PlayerManager : MonoBehaviour
 {
     public TMP_Text PointText;
     public TMP_Text LifeText;
@@ -12,13 +12,12 @@ public class PlayerManager : MonoBehaviour
     public GameObject StartPoint;
     public GameObject Player;
     public ObjGenController objCon;
-    private int point = 0;
-    public int bonusPoint = 5000;
+    private int point = 0;  // 초기 포인트는 0점
+    public int bonusPoint = 5000;  // 초기 보너스 점수는 5000점
     private bool clear = false;
-    public static int life = 3; // static ������ ���� (���� �ٲ� ������)
+    public static int life = 3; // 초기 목숨은 3개로 고정
     private CharacterController controller;
-    private bool isInvincible = false; // �浹 �ߺ� ����
-    //2025.04.01 ������ - ������, ����, �������� Ŭ���� ������ ���� PlayerManager �߰�
+    private bool isInvincible = false; // 
 
     private void Start()
     {
