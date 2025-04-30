@@ -31,6 +31,7 @@ public class PlayerManager : MonoBehaviour
         if (!clear) {
             if (other.CompareTag("PointCheck") && !isInvincible)
             {
+                Debug.Log("100 Points!");
                 point += 100;
                 Debug.Log("���� : " + point);
                 UpdateUI();
