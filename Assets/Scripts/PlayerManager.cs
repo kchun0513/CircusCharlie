@@ -81,7 +81,17 @@ public class PlayerManager : MonoBehaviour
     {
         GameManager.Instance.score += point;
         GameManager.Instance.StageClear();
-        GameManager.Instance.SceneChange(1);
+        if (GameManager.Instance.nowStage == 3){  // Stage 4 == GameClear
+            GameClear();
+        } else{
+            GameManager.Instance.SceneChange(1);
+        }
+    }
+
+    private void GameClear()
+    {
+        Destroy(GameManager.Instance.gameObject);  // 재시작을 위해 
+        GameManager.Instance.SceneChange(2);  // if Game cleared, go to the ScoreScreen
     }
 
     private void GameOver()
