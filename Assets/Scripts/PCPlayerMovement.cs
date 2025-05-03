@@ -16,6 +16,10 @@ public class PCPlayerMovement : MonoBehaviour
     Vector2 moveInput;
     float verticalVelocity;
 
+    public WhipEffect whipEffect;
+    public Animator whipAnimator;
+
+
     void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -35,6 +39,12 @@ public class PCPlayerMovement : MonoBehaviour
         if (value.isPressed && controller.isGrounded)
         {
             verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+
+            if (whipEffect != null)
+                whipEffect.PlayWhip();
+
+            if (whipAnimator != null)
+                whipAnimator.SetTrigger("Whip");
         }
     }
 
