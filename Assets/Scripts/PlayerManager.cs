@@ -69,18 +69,35 @@ public class PlayerManager : MonoBehaviour
                 }
                 PointText.text = "POINT : " + point.ToString();
                 LifeText.text = "Stage Clear!";
+                
+             
+                Invoke("StageClear", 3f);
+                
             }
         }
     }
 
+    private void StageClear()
+    {
+        GameManager.Instance.score += point;
+        GameManager.Instance.StageClear();
+        GameManager.Instance.SceneChange(1);
+    }
+
+    private void GameOver()
+    {
+        GameManager.Instance.nowStage = -1;
+        GameManager.Instance.SceneChange(1);
+    }
+
     IEnumerator HandleObstacleCollision()
     {
-        isInvincible = true; 
-        life--; 
+        isInvincible = true;
+        GameManager.Instance.life--; 
 
-        if (life <= 0)
+        if (GameManager.Instance.life <= 0)
         {
-            life = 3;
+            GameOver();
         }
 
         playerDead();
@@ -109,7 +126,8 @@ public class PlayerManager : MonoBehaviour
         objCon.removeObject();
         point = 0;
         bonusPoint = 5000;
-        UpdateUI();
+        GameManager.Instance.SceneChange(1);
+        //UpdateUI();
     }
 
     void UpdateUI()
@@ -117,7 +135,7 @@ public class PlayerManager : MonoBehaviour
         if (!clear)
         {
             if (PointText != null) { PointText.text = "POINT : " + point.ToString(); }
-            if (LifeText != null) { LifeText.text = "LIFE : " + life.ToString(); }
+            if (LifeText != null) { LifeText.text = "LIFE : " + GameManager.Instance.life.ToString(); }
             if (BonusText != null) { BonusText.text = "BONUS : " + bonusPoint.ToString(); }
         }
         

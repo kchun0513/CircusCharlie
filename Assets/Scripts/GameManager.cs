@@ -5,11 +5,47 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public List<string> Scenes;
+    public static GameManager Instance;
+    public List<string> Stages;
+    public List<string> Screens;
+    public int nowStage = 0;
+    public int score;
+    public int life;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject); // 중복 방지
+        }
+    }
     public void SceneChange(int num)
     {
-        Debug.Log(Scenes[num]);
-        SceneManager.LoadScene(Scenes[num]);
+        SceneManager.LoadScene(Screens[num]);
+    }
+
+    public void StageChange(int num)
+    {
+        nowStage = num;
+        SceneManager.LoadScene(Stages[nowStage]);
+    }
+
+    public void StageClear()
+    {
+        nowStage++;
+    }
+
+    public void GameStart()
+    {
+        life = 3;
+        score = 0;
+        nowStage = 0;
+        SceneChange(1);
     }
 
     public void ExitGame()
