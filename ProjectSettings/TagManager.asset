@@ -9,6 +9,7 @@ TagManager:
   - PointCheck
   - DeathZone
   - Roap
+  - Jump
   layers:
   - Default
   - TransparentFX
