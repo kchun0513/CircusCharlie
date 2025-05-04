@@ -97,6 +97,7 @@ public class PlayerManager : MonoBehaviour
     private void GameOver()
     {
         GameManager.Instance.nowStage = -1;
+        Destroy(GameManager.Instance.gameObject);
         GameManager.Instance.SceneChange(1);
     }
 
