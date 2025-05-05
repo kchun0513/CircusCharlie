@@ -171,7 +171,7 @@ MonoBehaviour:
   - {fileID: 3514898489966070561, guid: 948b345aead024c8e9795a8bd89bc517, type: 3}
   spawnPoint: {fileID: 2106408771}
   pm: {fileID: 1896160569}
-  spawnInterval_max: 3
+  spawnInterval_max: 2
   spawnInterval_min: 1
   Player: {fileID: 1896160566}
   spawnerDistance: 100

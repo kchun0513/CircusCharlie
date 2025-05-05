@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 846552763320119381}
   m_Layer: 0
   m_Name: PointCheckBox
-  m_TagString: PointCheck
+  m_TagString: PointCheck5
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

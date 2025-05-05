@@ -17,11 +17,15 @@ public class PlayerManager : MonoBehaviour
     private bool clear = false;
     public static int life = 3; 
     private CharacterController controller;
+    private Rigidbody rb;
     private bool isInvincible = false; 
+    private float jumpSpeed = 100f;
 
     private void Start()
     {
         controller = Player.GetComponent<CharacterController>();
+        rb = Player.GetComponent<Rigidbody>();
+        rb.useGravity = true;
         UpdateUI();
         StartCoroutine(DecreaseBonusOverTime());
     }
@@ -35,6 +39,18 @@ public class PlayerManager : MonoBehaviour
                 point += 100;
                 Debug.Log("���� : " + point);
                 UpdateUI();
+            }
+            if (other.CompareTag("PointCheck5") && !isInvincible)
+            {
+                Debug.Log("500 Points!");
+                point += 500;
+                Debug.Log("���� : " + point);
+                UpdateUI();
+            }
+            if (other.CompareTag("PlayerJump") && !isInvincible)
+            {
+                Debug.Log("Jump!");
+                rb.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
             }
             if (other.CompareTag("Obstacle") && !isInvincible)
             {
