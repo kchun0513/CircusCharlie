@@ -17,15 +17,13 @@ public class PlayerManager : MonoBehaviour
     private bool clear = false;
     public static int life = 3; 
     private CharacterController controller;
-    private Rigidbody rb;
     private bool isInvincible = false; 
-    private float jumpSpeed = 100f;
+    private float jumpHeight = 30f;
+    private float gravity = -9.81f;
 
     private void Start()
     {
         controller = Player.GetComponent<CharacterController>();
-        rb = Player.GetComponent<Rigidbody>();
-        rb.useGravity = true;
         UpdateUI();
         StartCoroutine(DecreaseBonusOverTime());
     }
@@ -50,10 +48,12 @@ public class PlayerManager : MonoBehaviour
             if (other.CompareTag("PlayerJump") && !isInvincible)
             {
                 Debug.Log("Jump!");
-                rb.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
+                // 자연스러운 점프: 짧은 기간 동안 위로 이동
+                StartCoroutine(JumpCoroutine());
             }
             if (other.CompareTag("Obstacle") && !isInvincible)
             {
+                Debug.Log("You are collide!");
                 StartCoroutine(HandleObstacleCollision());
             }
         }
@@ -85,13 +85,27 @@ public class PlayerManager : MonoBehaviour
                 }
                 PointText.text = "POINT : " + point.ToString();
                 LifeText.text = "Stage Clear!";
-                
+
              
                 Invoke("StageClear", 3f);
                 
             }
         }
     }
+
+    // 점프 코루틴: 중력 가속도 적용
+    private IEnumerator JumpCoroutine()
+    {
+        // 초기 속도: v0 = sqrt(2 * g * h)
+        float velocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        while (!controller.isGrounded)
+        {
+            controller.Move(Vector3.up * velocity * Time.deltaTime);
+            velocity += gravity * Time.deltaTime;
+            yield return null;
+        }
+    }
+
 
     private void StageClear()
     {
