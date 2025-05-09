@@ -193,7 +193,7 @@ namespace StarterAssets
             {
                 UsingXRDevice = false;
             }
-            Debug.Log("XR디바이스 사용 여부 : " + UsingXRDevice + " 정보 : " + _rightController);
+            // Debug.Log("XR디바이스 사용 여부 : " + UsingXRDevice + " 정보 : " + _rightController);
 
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
@@ -286,7 +286,7 @@ namespace StarterAssets
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
-            Debug.Log("HMD Y rotation: " + _mainCamera.transform.eulerAngles.y);
+            // Debug.Log("HMD Y rotation: " + _mainCamera.transform.eulerAngles.y);
             //Debug.Log(_input.move.magnitude);
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
@@ -513,7 +513,7 @@ namespace StarterAssets
                     _lastShakeTime = Time.time;
 
                     _movementState = 1;
-                    Debug.Log($"🔄 상태 변경: {_movementState} (0: 정지, 1: 걷기)");
+                    // Debug.Log($"🔄 상태 변경: {_movementState} (0: 정지, 1: 걷기)");
                     _moveTrigger = true;
                     SendHapticFeedback(_rightController, 0.7f, 0.15f);
                 }
@@ -530,9 +530,9 @@ namespace StarterAssets
 
                 if (deltaZ < -0.05f)
                 {
-                    Debug.Log("⏬ 속도 줄이기 (몸 쪽으로 당김)");
+                    // Debug.Log("⏬ 속도 줄이기 (몸 쪽으로 당김)");
                     _movementState = 0;
-                    Debug.Log($"🔄 상태 변경: {_movementState} (0: 정지, 1: 걷기)");
+                    // Debug.Log($"🔄 상태 변경: {_movementState} (0: 정지, 1: 걷기)");
                     //_speed *= 0.5f;
                     _moveTrigger = false;
                     SendHapticFeedback(_rightController, 0.7f, 0.15f);

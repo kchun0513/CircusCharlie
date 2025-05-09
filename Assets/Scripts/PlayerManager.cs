@@ -18,6 +18,8 @@ public class PlayerManager : MonoBehaviour
     public static int life = 3; 
     private CharacterController controller;
     private bool isInvincible = false; 
+    private float jumpHeight = 30f;
+    private float gravity = -9.81f;
 
     private void Start()
     {
@@ -31,12 +33,27 @@ public class PlayerManager : MonoBehaviour
         if (!clear) {
             if (other.CompareTag("PointCheck") && !isInvincible)
             {
+                Debug.Log("100 Points!");
                 point += 100;
                 Debug.Log("���� : " + point);
                 UpdateUI();
             }
+            if (other.CompareTag("PointCheck5") && !isInvincible)
+            {
+                Debug.Log("500 Points!");
+                point += 500;
+                Debug.Log("���� : " + point);
+                UpdateUI();
+            }
+            if (other.CompareTag("PlayerJump") && !isInvincible)
+            {
+                Debug.Log("Jump!");
+                // 자연스러운 점프: 짧은 기간 동안 위로 이동
+                StartCoroutine(JumpCoroutine());
+            }
             if (other.CompareTag("Obstacle") && !isInvincible)
             {
+                Debug.Log("You are collide!");
                 StartCoroutine(HandleObstacleCollision());
             }
         }
@@ -68,18 +85,67 @@ public class PlayerManager : MonoBehaviour
                 }
                 PointText.text = "POINT : " + point.ToString();
                 LifeText.text = "Stage Clear!";
+
+             
+                Invoke("StageClear", 3f);
+                
             }
         }
     }
 
+    // 점프 코루틴: 중력 가속도 적용
+    private IEnumerator JumpCoroutine()
+    {
+        // 초기 속도: v0 = sqrt(2 * g * h)
+        float velocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        while (!controller.isGrounded)
+        {
+            controller.Move(Vector3.up * velocity * Time.deltaTime);
+            velocity += gravity * Time.deltaTime;
+            yield return null;
+        }
+    }
+
+
+    private void StageClear()
+    {
+        GameManager.Instance.score += point;
+        GameManager.Instance.StageClear();
+        
+        // 스테지이 클리어 후 10000점을 넘은 경우 목숨을 하나 추가한다.
+        if (GameManager.Instance.score >= 10000){
+            GameManager.Instance.life += 1;
+        }
+
+        // Stage 4 == GameClear
+        if (GameManager.Instance.nowStage == 3){ 
+            GameClear();
+        } else{
+            GameManager.Instance.SceneChange(1);
+        }
+    }
+
+    private void GameClear()
+    {
+        Destroy(GameManager.Instance.gameObject);  // 재시작을 위해 
+        GameManager.Instance.SceneChange(2);  // if Game cleared, go to the ScoreScreen
+    }
+
+    private void GameOver()
+    {
+        GameManager.Instance.nowStage = -1;
+        Destroy(GameManager.Instance.gameObject);
+        GameManager.Instance.SceneChange(1);
+    }
+
     IEnumerator HandleObstacleCollision()
     {
-        isInvincible = true; 
-        life--; 
+        isInvincible = true;
+        GameManager.Instance.life--; 
 
-        if (life <= 0)
+        if (GameManager.Instance.life <= 0)
         {
-            life = 3;
+            GameOver();
         }
 
         playerDead();
@@ -108,7 +174,8 @@ public class PlayerManager : MonoBehaviour
         objCon.removeObject();
         point = 0;
         bonusPoint = 5000;
-        UpdateUI();
+        GameManager.Instance.SceneChange(1);
+        //UpdateUI();
     }
 
     void UpdateUI()
@@ -116,7 +183,7 @@ public class PlayerManager : MonoBehaviour
         if (!clear)
         {
             if (PointText != null) { PointText.text = "POINT : " + point.ToString(); }
-            if (LifeText != null) { LifeText.text = "LIFE : " + life.ToString(); }
+            if (LifeText != null) { LifeText.text = "LIFE : " + GameManager.Instance.life.ToString(); }
             if (BonusText != null) { BonusText.text = "BONUS : " + bonusPoint.ToString(); }
         }
         

@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 846552763320119381}
   m_Layer: 0
   m_Name: PointCheckBox
-  m_TagString: PointCheck
+  m_TagString: PointCheck5
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -287,8 +287,9 @@ GameObject:
   - component: {fileID: -521091783589570847}
   - component: {fileID: 3398942983915592076}
   - component: {fileID: 433946464880229017}
+  - component: {fileID: 210094193842574089}
   m_Layer: 0
-  m_Name: Monkey
+  m_Name: JumpMonkey
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -307,11 +308,10 @@ Transform:
   m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 45783881632797389}
   - {fileID: 5559538446535942710}
   - {fileID: 3767770331529854444}
   - {fileID: 7958141943539399583}
-  - {fileID: 5190499137490566818}
+  - {fileID: 2279313538886085425}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!111 &-521091783589570847
@@ -352,10 +352,10 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 1
 --- !u!114 &433946464880229017
 MonoBehaviour:
@@ -369,10 +369,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3773d0db11a218e448d037fe3ab78534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpeed: -4
-  maxSpeed: -4
-  canJump: 0
-  jumpForce: 5
+  minSpeed: -12
+  maxSpeed: -12
+  canJump: 1
+  jumpForce: 2
+--- !u!65 &210094193842574089
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2937914742738108325}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3348367159873148382
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,6 +723,59 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.000612715, y: 0.0029318514, z: 0.0025887592}
     m_Extent: {x: 0.005498017, y: 0.0076113367, z: 0.0061161174}
   m_DirtyAABB: 0
+--- !u!1 &5458554795477729044
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2279313538886085425}
+  - component: {fileID: 3947861146413141761}
+  m_Layer: 0
+  m_Name: HitBox
+  m_TagString: Obstacle
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2279313538886085425
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5458554795477729044}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5202175061258786370}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3947861146413141761
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5458554795477729044}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.5, y: 0.6, z: 0.6}
+  m_Center: {x: 0, y: 0.2, z: 0}
 --- !u!1 &5568158532268936169
 GameObject:
   m_ObjectHideFlags: 0
@@ -861,59 +935,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 9134866673176019144}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7038180567970603281
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5190499137490566818}
-  - component: {fileID: 6716788262476244552}
-  m_Layer: 0
-  m_Name: JumpBox
-  m_TagString: Jump
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5190499137490566818
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7038180567970603281}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5202175061258786370}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &6716788262476244552
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7038180567970603281}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.7, y: 1, z: 1}
-  m_Center: {x: 0, y: 0.4, z: -1}
 --- !u!1 &7904183156300766879
 GameObject:
   m_ObjectHideFlags: 0
@@ -945,59 +966,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5676435573274242071}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7953041037248102248
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 45783881632797389}
-  - component: {fileID: 4065490282434826245}
-  m_Layer: 0
-  m_Name: HitBox
-  m_TagString: Obstacle
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &45783881632797389
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7953041037248102248}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5202175061258786370}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &4065490282434826245
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7953041037248102248}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.5, y: 0.5, z: 0.8}
-  m_Center: {x: 0, y: 0.3, z: 0}
 --- !u!1 &8126973212453477336
 GameObject:
   m_ObjectHideFlags: 0
