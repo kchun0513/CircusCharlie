@@ -196,7 +196,7 @@ namespace StarterAssets
             {
                 UsingXRDevice = false;
             }
-            // Debug.Log("XR디바이스 사용 여부 : " + UsingXRDevice + " 정보 : " + _rightController);
+            Debug.Log("XR디바이스 사용 여부 : " + UsingXRDevice + " 정보 : " + _rightController);
 
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
@@ -343,15 +343,22 @@ namespace StarterAssets
             // move the player
             // 현재 카메라의 방향을 기준으로 이동 벡터를 변환
             Vector3 inputDirection;
-            if (_moveTrigger)
+            if (nowStage == 1)
             {
-                // 입력이 없어도 HMD가 바라보는 방향으로 전진
-                inputDirection = new Vector3(0, 0, 1); // 정면
-            }
-            else
+                if (_moveTrigger)
+                {
+                    // 입력이 없어도 HMD가 바라보는 방향으로 전진
+                    inputDirection = new Vector3(0, 0, 1); // 정면
+                }
+                else
+                {
+                    inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y);
+                }
+            } else
             {
-                inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y);
+                inputDirection = new Vector3(0, 0, 1);
             }
+            
             Quaternion moveRotation;
 
             // XR HMD 회전값 가져오기 헤드셋 방향 진행 250413 김충훈
