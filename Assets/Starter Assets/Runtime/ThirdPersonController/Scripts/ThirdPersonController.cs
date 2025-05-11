@@ -124,6 +124,9 @@ namespace StarterAssets
 
         private bool _moveTrigger = false;
 
+        public WhipEffect whipEffect;
+        public Animator whipAnimator;
+
 #if ENABLE_INPUT_SYSTEM
         private PlayerInput _playerInput;
 #endif
@@ -221,7 +224,7 @@ namespace StarterAssets
                 switch (_movementState)
                 {
                     case 0: _speed = 0f; break;
-                    case 1: _speed = _input.sprint ? _runSpeed : _walkSpeed; break;
+                    case 1: _speed = _input.sprint ? SprintSpeed : MoveSpeed; break;
                 }
             }
             
@@ -516,6 +519,11 @@ namespace StarterAssets
                     // Debug.Log($"🔄 상태 변경: {_movementState} (0: 정지, 1: 걷기)");
                     _moveTrigger = true;
                     SendHapticFeedback(_rightController, 0.7f, 0.15f);
+                    if (whipEffect != null)
+                        whipEffect.PlayWhip();
+
+                    if (whipAnimator != null)
+                        whipAnimator.SetTrigger("Whip");
                 }
 
                 _lastVelocity = velocity;
