@@ -110,6 +110,7 @@ namespace StarterAssets
         private int _animIDMotionSpeed;
 
         // XR Controller
+        private UnityEngine.XR.InputDevice _leftController;
         private UnityEngine.XR.InputDevice _rightController;
         private Vector3 _lastVelocity;
         private Vector3 _lastPosition;
@@ -187,9 +188,12 @@ namespace StarterAssets
 
             //오른쪽 컨트롤러 가져오기
             var devices = new List<UnityEngine.XR.InputDevice>();
+            var L_devices = new List<UnityEngine.XR.InputDevice>();
             InputDevices.GetDevicesAtXRNode(XRNode.RightHand, devices);
-            if (devices.Count > 0)
+            InputDevices.GetDevicesAtXRNode(XRNode.LeftHand, L_devices);
+            if (devices.Count > 0 && L_devices.Count > 0)
             {
+                _leftController = L_devices[0];
                 _rightController = devices[0];
                 UsingXRDevice = true;
             } else
@@ -215,7 +219,9 @@ namespace StarterAssets
                         DetectShakeGesture();
                         DetectPullGesture();
                         break;
-
+                    case 2:
+                        TriggerMoveOfSecondStage();
+                        break;
                     default :
                         break;
                 }
@@ -343,7 +349,7 @@ namespace StarterAssets
             // move the player
             // 현재 카메라의 방향을 기준으로 이동 벡터를 변환
             Vector3 inputDirection;
-            if (nowStage == 1)
+            if (nowStage == 1 || nowStage == 2)
             {
                 if (_moveTrigger)
                 {
@@ -354,8 +360,8 @@ namespace StarterAssets
                 {
                     inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y);
                 }
-            } else
-            {
+            }
+            else {
                 inputDirection = new Vector3(0, 0, 1);
             }
             
@@ -562,6 +568,46 @@ namespace StarterAssets
             if (device.TryGetHapticCapabilities(out HapticCapabilities capabilities) && capabilities.supportsImpulse)
             {
                 device.SendHapticImpulse(0, amplitude, duration);
+            }
+        }
+
+        private void TriggerMoveOfSecondStage()
+        {
+            if (UsingXRDevice)
+            {
+                float leftTrigger = 0f;
+                float rightTrigger = 0f;
+                // 트리거 값을 읽기 (0~1)
+                if (_leftController.TryGetFeatureValue(UnityEngine.XR.CommonUsages.trigger, out leftTrigger))
+                {
+                    Debug.Log($"Left Trigger: {leftTrigger}");
+                }
+
+                if (_rightController.TryGetFeatureValue(UnityEngine.XR.CommonUsages.trigger, out rightTrigger))
+                {
+                    Debug.Log($"Right Trigger: {rightTrigger}");
+                }
+                Debug.Log(leftTrigger);
+                Debug.Log(rightTrigger);
+
+                if (rightTrigger > 0.5f)
+                {
+                    _speed = 1f; // 앞으로
+                    _moveTrigger = true;
+                    _movementState = 1;
+                }
+                else if (leftTrigger > 0.5f)
+                {
+                    _speed = -1f; // 앞으로
+                    _moveTrigger = true;
+                    _movementState = 1;
+                }
+                else
+                {
+                    _speed = 0f; // 앞으로
+                    _moveTrigger = false;
+                    _movementState = 0;
+                }
             }
         }
     }

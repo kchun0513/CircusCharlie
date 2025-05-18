@@ -166,7 +166,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    void playerDead()
+    public void playerDead()
     {
         controller.enabled = false; 
         Player.transform.position = StartPoint.transform.position;
