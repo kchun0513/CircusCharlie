@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class LoadingManager : MonoBehaviour
 {
-    public float delayTime = 3f; // 3ÃÊ ÈÄ ´ÙÀ½ ¾ÀÀ¸·Î ÀüÈ¯
+    public float delayTime = 3f; // 3ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
     public TMP_Text StageText;
     public TMP_Text PointText;
     public TMP_Text LifeText;
