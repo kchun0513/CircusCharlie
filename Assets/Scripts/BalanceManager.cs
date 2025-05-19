@@ -25,7 +25,14 @@ public class BalanceManager : MonoBehaviour
         _CheckBalance();
         if (BalanceSlider.value <= 0)
         {
-            player.playerDead();
+            if (GameManager.Instance.life <= 0)
+            {
+                player.GameOver();
+            }
+            else
+            {
+                player.playerDead();
+            }
         }
     }
 

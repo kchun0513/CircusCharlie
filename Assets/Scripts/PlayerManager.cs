@@ -131,7 +131,7 @@ public class PlayerManager : MonoBehaviour
         GameManager.Instance.SceneChange(2);  // if Game cleared, go to the ScoreScreen
     }
 
-    private void GameOver()
+    public void GameOver()
     {
         GameManager.Instance.nowStage = -1;
         Destroy(GameManager.Instance.gameObject);
@@ -141,14 +141,16 @@ public class PlayerManager : MonoBehaviour
     IEnumerator HandleObstacleCollision()
     {
         isInvincible = true;
-        GameManager.Instance.life--; 
+
 
         if (GameManager.Instance.life <= 0)
         {
             GameOver();
+        } else
+        {
+            playerDead();
         }
 
-        playerDead();
 
         yield return new WaitForSeconds(0.5f); 
      
@@ -172,6 +174,7 @@ public class PlayerManager : MonoBehaviour
         Player.transform.position = StartPoint.transform.position;
         controller.enabled = true;
         objCon.removeObject();
+        GameManager.Instance.life--;
         point = 0;
         bonusPoint = 5000;
         GameManager.Instance.SceneChange(1);

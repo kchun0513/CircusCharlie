@@ -587,18 +587,17 @@ namespace StarterAssets
                 {
                     Debug.Log($"Right Trigger: {rightTrigger}");
                 }
-                Debug.Log(leftTrigger);
-                Debug.Log(rightTrigger);
+
 
                 if (rightTrigger > 0.5f)
                 {
-                    _speed = 1f; // 앞으로
+                    _speed = 4.0f; // 앞으로
                     _moveTrigger = true;
                     _movementState = 1;
                 }
                 else if (leftTrigger > 0.5f)
                 {
-                    _speed = -1f; // 앞으로
+                    _speed = -4.0f; // 앞으로
                     _moveTrigger = true;
                     _movementState = 1;
                 }
