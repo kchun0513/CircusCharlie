@@ -1,3 +1,4 @@
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class GameManager : MonoBehaviour
     public int nowStage = 0;
     public int score;
     public int life;
+    [SerializeField] private Button settingButton;
 
     private void Awake()
     {
@@ -23,6 +25,12 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject); // �ߺ� ����
         }
+    }
+
+    private void Start()
+    {
+        // Register the GoSetting callback when the button is clicked
+        settingButton.onClick.AddListener(GoSetting);
     }
     public void SceneChange(int num)  // Change the scene
     {
@@ -47,6 +55,12 @@ public class GameManager : MonoBehaviour
         nowStage = 0;
         SceneChange(1);
     }
+
+    public void GoSetting()
+    {
+        SceneChange(3);
+    }
+    
 
     public void ExitGame()
     {
