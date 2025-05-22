@@ -12,7 +12,8 @@ public class GameManager : MonoBehaviour
     public int nowStage = 0;
     public int score;
     public int life;
-    [SerializeField] private Button settingButton;
+    public Button settingButton;
+    public Button scoreButton;
 
     private void Awake()
     {
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour
     {
         // Register the GoSetting callback when the button is clicked
         settingButton.onClick.AddListener(GoSetting);
+        scoreButton.onClick.AddListener(GoScoreBoard);
     }
     public void SceneChange(int num)  // Change the scene
     {
@@ -59,6 +61,11 @@ public class GameManager : MonoBehaviour
     public void GoSetting()
     {
         SceneChange(3);
+    }
+
+    public void GoScoreBoard()
+    {
+        SceneChange(4);
     }
     
 
