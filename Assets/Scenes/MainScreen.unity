@@ -2003,6 +2003,10 @@ PrefabInstance:
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 5541347423014690964, guid: bebf9c6e5faa221448da5bc7925ce072, type: 3}
+      propertyPath: scoreButton
+      value: 
+      objectReference: {fileID: 1032651616}
+    - target: {fileID: 5541347423014690964, guid: bebf9c6e5faa221448da5bc7925ce072, type: 3}
       propertyPath: settingButton
       value: 
       objectReference: {fileID: 1718710646}
