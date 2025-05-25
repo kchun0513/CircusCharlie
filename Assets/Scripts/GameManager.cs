@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public int life;
     public Button settingButton;
     public Button scoreButton;
+    private bool _isPaused = false;
 
     private void Awake()
     {
@@ -42,12 +43,31 @@ public class GameManager : MonoBehaviour
     public void StageChange(int num)
     {
         nowStage = num;
+        if (nowStage == 1)
+        {
+            GamePause();
+        }
         SceneManager.LoadScene(Stages[nowStage]);
     }
 
     public void StageClear()
     {
         nowStage++;
+    }
+
+    public void GamePause()
+    {
+        _isPaused = true;
+    }
+
+    public void GameRestart()
+    {
+        _isPaused = false;
+    }
+
+    public bool CheckPaused()
+    {
+        return _isPaused;
     }
 
     public void GameStart()

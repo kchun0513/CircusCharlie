@@ -27,15 +27,19 @@ public class ObjGenController : MonoBehaviour
         //print(spawnPoint.position);
         while (!pm.getClear())
         {
-            spawnPosition = spawnPoint.position;
-            spawnPosition.z = Player.transform.position.z + spawnerDistance;
-            Debug.Log(spawnPosition);
-            int result = Random.Range(0, 2);
             float interval = Random.Range(spawnInterval_min, spawnInterval_max);
-            GameObject newObj;
-            newObj = Instantiate(ObstaclePrefabs[result], spawnPosition, spawnPoint.rotation);
+            if (!GameManager.Instance.CheckPaused())
+            {
+                spawnPosition = spawnPoint.position;
+                spawnPosition.z = Player.transform.position.z + spawnerDistance;
+                Debug.Log(spawnPosition);
+                int result = Random.Range(0, 2);
+                GameObject newObj;
+                newObj = Instantiate(ObstaclePrefabs[result], spawnPosition, spawnPoint.rotation);
 
-            Objects.Add(newObj); 
+                Objects.Add(newObj);
+                
+            }
             yield return new WaitForSeconds(interval);
         }
     }

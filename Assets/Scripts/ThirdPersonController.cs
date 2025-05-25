@@ -167,6 +167,7 @@ namespace StarterAssets
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
             
             _hasAnimator = TryGetComponent(out _animator);
+            Debug.Log("_hasAnimator : " + _animator);
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<StarterAssetsInputs>();
             _input.analogMovement = false;
@@ -209,41 +210,45 @@ namespace StarterAssets
 
         private void Update()
         {
-            _hasAnimator = TryGetComponent(out _animator);
-
-            if (UsingXRDevice)
+            if (!GameManager.Instance.CheckPaused())
             {
-                switch (nowStage)
-                {
-                    case 1:
-                        DetectShakeGesture();
-                        DetectPullGesture();
-                        break;
-                    case 2:
-                        TriggerMoveOfSecondStage();
-                        break;
-                    default :
-                        break;
-                }
+                _hasAnimator = TryGetComponent(out _animator);
 
-                // 현재 움직임 상태에 따라 속도 설정
-                switch (_movementState)
+                if (UsingXRDevice)
                 {
-                    case 0: _speed = 0f; break;
-                    case 1: _speed = _input.sprint ? SprintSpeed : MoveSpeed; break;
-                }
-            }
-            
+                    switch (nowStage)
+                    {
+                        case 1:
+                            DetectShakeGesture();
+                            DetectPullGesture();
+                            break;
+                        case 2:
+                            TriggerMoveOfSecondStage();
+                            break;
+                        default:
+                            break;
+                    }
 
-            RotateCamera();
-            JumpAndGravity();
-            GroundedCheck();
-            Move();
+                    // 현재 움직임 상태에 따라 속도 설정
+                    switch (_movementState)
+                    {
+                        case 0: _speed = 0f; break;
+                        case 1: _speed = _input.sprint ? SprintSpeed : MoveSpeed; break;
+                    }
+                }
+                RotateCamera();
+                JumpAndGravity();
+                GroundedCheck();
+                Move();
+            }  
         }
 
         private void LateUpdate()
         {
-            CameraRotation();
+            if (!GameManager.Instance.CheckPaused())
+            {
+                CameraRotation();
+            }
         }
 
         private void AssignAnimationIDs()

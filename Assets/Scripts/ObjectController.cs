@@ -38,17 +38,20 @@ public class ObjectController : MonoBehaviour
     // 물리 이동은 FixedUpdate에서
     void FixedUpdate()
     {
-        if (rb != null)
+        if (!GameManager.Instance.CheckPaused())
         {
-            // MovePosition으로 부드럽게 이동
-            Vector3 nextPos = rb.position + transform.forward * speed * Time.fixedDeltaTime;
-            rb.MovePosition(nextPos);
-        }
-        else
-        {
-            // Rigidbody가 없으면 기존 Translate fallback
-            transform.Translate(Vector3.forward * speed * Time.deltaTime);
-        }
+            if (rb != null)
+            {
+                // MovePosition으로 부드럽게 이동
+                Vector3 nextPos = rb.position + transform.forward * speed * Time.fixedDeltaTime;
+                rb.MovePosition(nextPos);
+            }
+            else
+            {
+                // Rigidbody가 없으면 기존 Translate fallback
+                transform.Translate(Vector3.forward * speed * Time.deltaTime);
+            }
+        }        
     }
 
     private void OnTriggerEnter(Collider other)

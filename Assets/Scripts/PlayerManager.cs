@@ -161,10 +161,13 @@ public class PlayerManager : MonoBehaviour
     {
         while (bonusPoint > 0 && !clear)
         {
+            if (!GameManager.Instance.CheckPaused())
+            {
+                bonusPoint -= 10;
+                if (bonusPoint < 0) bonusPoint = 0;
+                UpdateUI();
+            }
             yield return new WaitForSeconds(0.25f);
-            bonusPoint -= 10;
-            if (bonusPoint < 0) bonusPoint = 0;
-            UpdateUI();
         }
     }
 
