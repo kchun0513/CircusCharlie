@@ -616,6 +616,39 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9f6096b96d77784a9a57033fb33c238, type: 3}
+--- !u!114 &200192114 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8222215268370251956, guid: e9f6096b96d77784a9a57033fb33c238, type: 3}
+  m_PrefabInstance: {fileID: 200192113}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &200192115 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3750461680049994276, guid: e9f6096b96d77784a9a57033fb33c238, type: 3}
+  m_PrefabInstance: {fileID: 200192113}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &200192116 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2557809161255485176, guid: e9f6096b96d77784a9a57033fb33c238, type: 3}
+  m_PrefabInstance: {fileID: 200192113}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &200739022
 GameObject:
   m_ObjectHideFlags: 0
@@ -2723,6 +2756,12 @@ MonoBehaviour:
   BonusText: {fileID: 215608234}
   StartPoint: {fileID: 19354446}
   Player: {fileID: 1180169}
+  Hearts:
+  - {fileID: 200192116}
+  - {fileID: 200192115}
+  - {fileID: 200192114}
+  Heart: {fileID: 4606908045521496030, guid: 2b8558b645a07d74582677fd0bf9dfa9, type: 3}
+  EmptyHeart: {fileID: -3094302376565900353, guid: c52c66e8c335c1640a21e3d2c274bfd7, type: 3}
   objCon: {fileID: 88890485}
   bonusPoint: 5000
 --- !u!114 &1818634144

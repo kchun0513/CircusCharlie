@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class PlayerManager : MonoBehaviour
     public TMP_Text BonusText;
     public GameObject StartPoint;
     public GameObject Player;
+    public Image[] Hearts;
+    public Sprite Heart;
+    public Sprite EmptyHeart;
     public ObjGenController objCon;
     private int point = 0;
     public int bonusPoint = 5000;
@@ -24,6 +28,7 @@ public class PlayerManager : MonoBehaviour
     private void Start()
     {
         controller = Player.GetComponent<CharacterController>();
+        HeartInitialize();
         UpdateUI();
         StartCoroutine(DecreaseBonusOverTime());
     }
@@ -182,6 +187,24 @@ public class PlayerManager : MonoBehaviour
         bonusPoint = 5000;
         GameManager.Instance.SceneChange(1);
         //UpdateUI();
+    }
+
+    public void HeartInitialize()
+    {
+        if (Hearts.Length > 0)
+        {
+            for (int i = 0; i < Hearts.Length; i++)
+            {
+                if (GameManager.Instance.life > i)
+                {
+                    Hearts[i].sprite = Heart;
+                }
+                else
+                {
+                    Hearts[i].sprite = EmptyHeart;
+                }
+            }
+        }
     }
 
     void UpdateUI()
