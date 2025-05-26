@@ -3343,6 +3343,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   exitButton: {fileID: 1604479876}
+  initialsTexts:
+  - {fileID: 450836649}
+  - {fileID: 1676044031}
+  - {fileID: 1431503286}
+  - {fileID: 717075225}
+  - {fileID: 532045472}
+  scoreTexts:
+  - {fileID: 1120346940}
+  - {fileID: 2097457312}
+  - {fileID: 2001548835}
+  - {fileID: 766632368}
+  - {fileID: 1365957668}
 --- !u!4 &1140599817
 Transform:
   m_ObjectHideFlags: 0
