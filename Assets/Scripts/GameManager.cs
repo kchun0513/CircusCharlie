@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public List<string> Screens;
     public int nowStage = 0;
     public int score;
+    public int pointGet = 0;
     public int life;
     public Button settingButton;
     public Button scoreButton;
@@ -52,6 +53,11 @@ public class GameManager : MonoBehaviour
 
     public void StageClear()
     {
+        // 스테이지 클리어 후 10000점을 넘은 경우 목숨을 하나 추가한다.
+        if ((score + pointGet) / 10000 > score / 10000)
+        {
+            life += 1;
+        }
         nowStage++;
     }
 

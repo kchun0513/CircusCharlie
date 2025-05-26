@@ -13,10 +13,12 @@ public class BalanceManager : MonoBehaviour
     public float BalanceLoss = 0.5f;
     public PlayerManager player;
     public Slider BalanceSlider; //±ÕÇü
+    public Image SliderFill;
     public TMP_Text BalanceText;
+    public Image NoticePanel;
     private float timer = 0f;
     private bool BalanceInitialized = false;
-    
+
 
     void Start()
     {
@@ -46,6 +48,8 @@ public class BalanceManager : MonoBehaviour
         {
             timer += Time.deltaTime;
             //Debug.Log(timer);
+            float t = BalanceSlider.value / 100f;
+            SliderFill.color = new Color(1f - t, t, 0f, 1f);
             if (LeftBalanceZone.isHovering && RightBalanceZone.isHovering)
             {
                 if (BalanceSlider.value < 100 && timer >= timeRequired)
@@ -68,6 +72,7 @@ public class BalanceManager : MonoBehaviour
             {
                 BalanceInitialized = true;
                 BalanceText.text = "";
+                NoticePanel.enabled = false;
                 GameManager.Instance.GameRestart();
             }
         }

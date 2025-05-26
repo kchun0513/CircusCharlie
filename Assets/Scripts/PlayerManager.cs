@@ -114,13 +114,9 @@ public class PlayerManager : MonoBehaviour
 
     private void StageClear()
     {
-        GameManager.Instance.score += point;
+        //GameManager.Instance.score += point;
+        GameManager.Instance.pointGet = point;
         GameManager.Instance.StageClear();
-        
-        // 스테지이 클리어 후 10000점을 넘은 경우 목숨을 하나 추가한다.
-        if (GameManager.Instance.score >= 10000){
-            GameManager.Instance.life += 1;
-        }
 
         // Stage 4 == GameClear
         if (GameManager.Instance.nowStage == 3){ 
