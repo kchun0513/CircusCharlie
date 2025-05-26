@@ -4165,6 +4165,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2581937342675545671, guid: e9f6096b96d77784a9a57033fb33c238, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2987604298977088862, guid: e9f6096b96d77784a9a57033fb33c238, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -4223,7 +4227,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3653194168157222427, guid: e9f6096b96d77784a9a57033fb33c238, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.453
+      value: 4.93
       objectReference: {fileID: 0}
     - target: {fileID: 3653194168157222427, guid: e9f6096b96d77784a9a57033fb33c238, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4260,6 +4264,10 @@ PrefabInstance:
     - target: {fileID: 3653194168157222427, guid: e9f6096b96d77784a9a57033fb33c238, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4925864450330194912, guid: e9f6096b96d77784a9a57033fb33c238, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5913489380695459128, guid: e9f6096b96d77784a9a57033fb33c238, type: 3}
       propertyPath: m_fontAsset
