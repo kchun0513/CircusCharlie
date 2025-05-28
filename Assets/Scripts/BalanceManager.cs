@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +13,12 @@ public class BalanceManager : MonoBehaviour
     public float BalanceLoss = 0.5f;
     public PlayerManager player;
     public Slider BalanceSlider; //±ÕÇü
+    public Image SliderFill;
+    public TMP_Text BalanceText;
+    public Image NoticePanel;
     private float timer = 0f;
+    private bool BalanceInitialized = false;
+
 
     void Start()
     {
@@ -38,22 +44,36 @@ public class BalanceManager : MonoBehaviour
 
     void _CheckBalance()
     {
-        timer += Time.deltaTime;
-        //Debug.Log(timer);
-        if (LeftBalanceZone.isHovering && RightBalanceZone.isHovering)
+        if (!GameManager.Instance.CheckPaused())
         {
-            if (BalanceSlider.value < 100 && timer >= timeRequired)
+            timer += Time.deltaTime;
+            //Debug.Log(timer);
+            float t = BalanceSlider.value / 100f;
+            SliderFill.color = new Color(1f - t, t, 0f, 1f);
+            if (LeftBalanceZone.isHovering && RightBalanceZone.isHovering)
             {
-                BalanceSlider.value += 1f;
-                timer = 0f;
+                if (BalanceSlider.value < 100 && timer >= timeRequired)
+                {
+                    BalanceSlider.value += 1f;
+                    timer = 0f;
+                }
             }
-        }
-        else
-        {
-            if (timer >= timeRequired)
+            else
             {
-                BalanceSlider.value -= 1f;
-                timer = 0f;
+                if (timer >= timeRequired)
+                {
+                    BalanceSlider.value -= 1f;
+                    timer = 0f;
+                }
+            }
+        } else if (GameManager.Instance.CheckPaused() && !BalanceInitialized)
+        {
+            if (LeftBalanceZone.isHovering && RightBalanceZone.isHovering)
+            {
+                BalanceInitialized = true;
+                BalanceText.text = "";
+                NoticePanel.enabled = false;
+                GameManager.Instance.GameRestart();
             }
         }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class PlayerManager : MonoBehaviour
     public TMP_Text BonusText;
     public GameObject StartPoint;
     public GameObject Player;
+    public Image[] Hearts;
+    public Sprite Heart;
+    public Sprite EmptyHeart;
     public ObjGenController objCon;
     private int point = 0;
     public int bonusPoint = 5000;
@@ -24,6 +28,7 @@ public class PlayerManager : MonoBehaviour
     private void Start()
     {
         controller = Player.GetComponent<CharacterController>();
+        HeartInitialize();
         UpdateUI();
         StartCoroutine(DecreaseBonusOverTime());
     }
@@ -109,13 +114,9 @@ public class PlayerManager : MonoBehaviour
 
     private void StageClear()
     {
-        GameManager.Instance.score += point;
+        //GameManager.Instance.score += point;
+        GameManager.Instance.pointGet = point;
         GameManager.Instance.StageClear();
-        
-        // 스테지이 클리어 후 10000점을 넘은 경우 목숨을 하나 추가한다.
-        if (GameManager.Instance.score >= 10000){
-            GameManager.Instance.life += 1;
-        }
 
         // Stage 4 == GameClear
         if (GameManager.Instance.nowStage == 3){ 
@@ -161,10 +162,13 @@ public class PlayerManager : MonoBehaviour
     {
         while (bonusPoint > 0 && !clear)
         {
+            if (!GameManager.Instance.CheckPaused())
+            {
+                bonusPoint -= 10;
+                if (bonusPoint < 0) bonusPoint = 0;
+                UpdateUI();
+            }
             yield return new WaitForSeconds(0.25f);
-            bonusPoint -= 10;
-            if (bonusPoint < 0) bonusPoint = 0;
-            UpdateUI();
         }
     }
 
@@ -179,6 +183,24 @@ public class PlayerManager : MonoBehaviour
         bonusPoint = 5000;
         GameManager.Instance.SceneChange(1);
         //UpdateUI();
+    }
+
+    public void HeartInitialize()
+    {
+        if (Hearts.Length > 0)
+        {
+            for (int i = 0; i < Hearts.Length; i++)
+            {
+                if (GameManager.Instance.life > i)
+                {
+                    Hearts[i].sprite = Heart;
+                }
+                else
+                {
+                    Hearts[i].sprite = EmptyHeart;
+                }
+            }
+        }
     }
 
     void UpdateUI()

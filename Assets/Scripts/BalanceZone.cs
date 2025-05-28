@@ -9,7 +9,6 @@ public class BalanceZone : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public Image targetImage;
     public float holdTimeRequired = 1.5f;
     public bool isHovering = false;
-
     private float holdTimer = 0f;
 
     void Update()

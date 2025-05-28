@@ -11,9 +11,11 @@ public class GameManager : MonoBehaviour
     public List<string> Screens;
     public int nowStage = 0;
     public int score;
+    public int pointGet = 0;
     public int life;
     public Button settingButton;
     public Button scoreButton;
+    private bool _isPaused = false;
 
     private void Awake()
     {
@@ -42,12 +44,36 @@ public class GameManager : MonoBehaviour
     public void StageChange(int num)
     {
         nowStage = num;
+        if (nowStage == 1)
+        {
+            GamePause();
+        }
         SceneManager.LoadScene(Stages[nowStage]);
     }
 
     public void StageClear()
     {
+        // 스테이지 클리어 후 10000점을 넘은 경우 목숨을 하나 추가한다.
+        if ((score + pointGet) / 10000 > score / 10000)
+        {
+            life += 1;
+        }
         nowStage++;
+    }
+
+    public void GamePause()
+    {
+        _isPaused = true;
+    }
+
+    public void GameRestart()
+    {
+        _isPaused = false;
+    }
+
+    public bool CheckPaused()
+    {
+        return _isPaused;
     }
 
     public void GameStart()
