@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -54,6 +55,10 @@ public class ScoringManager : MonoBehaviour
         {
             string initials = new string(current.ToArray());
             Debug.Log("Entered Initials: " + initials);
+            // Append to CSV in persistent data path
+            string csvPath = Path.Combine(Application.persistentDataPath, "ScoreRecord.csv");
+            string line = GameManager.Instance.score + "," + initials;
+            File.AppendAllText(csvPath, line + System.Environment.NewLine);
             GameManager.Instance.SceneChange(0);
             // TODO: GameManager.Instance.SetPlayerInitials(initials);
         }

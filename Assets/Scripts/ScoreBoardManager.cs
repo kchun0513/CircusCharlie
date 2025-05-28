@@ -31,15 +31,16 @@ public class ScoreBoardManager : MonoBehaviour
     }
 
     private void LoadScores() {
-        // CSV 파일 로드 (Resources/ScoreRecord.csv)
-        TextAsset csv = Resources.Load<TextAsset>("ScoreRecord");
-        if (csv == null) {
-            Debug.LogError("ScoreRecord.csv를 Resources 폴더에서 찾을 수 없습니다!");
+        // CSV 파일 로드 (persistentDataPath/ScoreRecord.csv)
+        string csvPath = Path.Combine(Application.persistentDataPath, "ScoreRecord.csv");
+        if (!File.Exists(csvPath)) {
+            Debug.LogError($"ScoreRecord.csv not found at {csvPath}");
             return;
         }
         // 줄 단위로 분리하고 빈 줄 제거
-        string[] lines = csv.text
-            .Split(new[] {'\n', '\r'}, System.StringSplitOptions.RemoveEmptyEntries);
+        string[] lines = File.ReadAllLines(csvPath)
+            .Where(l => !string.IsNullOrWhiteSpace(l))
+            .ToArray();
         // 파싱하여 ScoreRecord 리스트로 변환
         List<ScoreRecord> all = new List<ScoreRecord>();
         foreach (var line in lines) {
