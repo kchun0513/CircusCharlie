@@ -9,8 +9,12 @@ public class KeyButton : MonoBehaviour {
 
     // 버튼 초기화: 문자와 클릭 콜백 연결
     public void Init(char c, System.Action<char> onClick) {
-        keyChar = c;
-        labelText.text = c.ToString();
-        button.onClick.AddListener(() => onClick(c));
-    }
+    keyChar = c;
+    labelText.text = c.ToString();
+    Debug.Log($"[KeyButton] Init: {c}");
+    button.onClick.AddListener(() => {
+        Debug.Log($"[KeyButton] Clicked: {c}");
+        onClick(c);
+    });
+}
 }
