@@ -501,8 +501,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ClearText: {fileID: 1609505088}
   PointText: {fileID: 714074250}
-  NameInput: {fileID: 0}
+  NameInput: {fileID: 1165312870}
   SubmitButton: {fileID: 1604479876}
+  keyButtonPrefab: {fileID: 3681319031954108731, guid: 70be35138d7c7411d8f57eefe4971e72, type: 3}
+  keysContainer: {fileID: 2019496393}
+  backspaceButton: {fileID: 37530559}
 --- !u!1 &160823876
 GameObject:
   m_ObjectHideFlags: 0
@@ -3511,55 +3514,6 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: 0}
   m_ButtonPressPoint: 0.5
---- !u!1 &1431662234
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1431662236}
-  - component: {fileID: 1431662235}
-  m_Layer: 0
-  m_Name: VirtualKeyboardManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1431662235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1431662234}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcac8593457934f18aba0d4a448f1a5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  keyButtonPrefab: {fileID: 3681319031954108731, guid: 70be35138d7c7411d8f57eefe4971e72, type: 3}
-  keysContainer: {fileID: 2019496393}
-  nameInput: {fileID: 1165312870}
-  backspaceButton: {fileID: 37530559}
-  submitButton: {fileID: 1604479876}
---- !u!4 &1431662236
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1431662234}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.13232374, y: 2002.22, z: -697.7313}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1604479874
 GameObject:
   m_ObjectHideFlags: 0
@@ -4494,4 +4448,3 @@ SceneRoots:
   - {fileID: 765675376}
   - {fileID: 160823879}
   - {fileID: 64636129}
-  - {fileID: 1431662236}
