@@ -82259,6 +82259,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6027518167984532688, guid: 216b791fa321dc049ae3894028237781, type: 3}
+      propertyPath: m_Antialiasing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6027518167984532688, guid: 216b791fa321dc049ae3894028237781, type: 3}
+      propertyPath: m_AntialiasingQuality
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6027518167984532688, guid: 216b791fa321dc049ae3894028237781, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6923648814732417609, guid: 216b791fa321dc049ae3894028237781, type: 3}
       propertyPath: m_LineLength
       value: 20

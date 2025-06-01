@@ -32,7 +32,7 @@ public class ObjectController : MonoBehaviour
 
         // 속도를 뒤(음수) 방향으로 랜덤 설정
         speed = Random.Range(-maxSpeed, -minSpeed);
-        Debug.Log($"[{name}] speed = {speed}");
+        //Debug.Log($"[{name}] speed = {speed}");
     }
 
     // 물리 이동은 FixedUpdate에서
@@ -59,7 +59,7 @@ public class ObjectController : MonoBehaviour
         // “Jump” 태그 박스에 들어오고, 점프 기능이 있을 때
         if (other.CompareTag("Jump") && canJump && rb != null)
         {
-            Debug.Log($"[{name}] Monkey Jump!");
+            //Debug.Log($"[{name}] Monkey Jump!");
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
     }

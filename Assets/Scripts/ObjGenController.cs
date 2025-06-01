@@ -32,7 +32,7 @@ public class ObjGenController : MonoBehaviour
             {
                 spawnPosition = spawnPoint.position;
                 spawnPosition.z = Player.transform.position.z + spawnerDistance;
-                Debug.Log(spawnPosition);
+                //Debug.Log(spawnPosition);
                 int result = Random.Range(0, 2);
                 GameObject newObj;
                 newObj = Instantiate(ObstaclePrefabs[result], spawnPosition, spawnPoint.rotation);

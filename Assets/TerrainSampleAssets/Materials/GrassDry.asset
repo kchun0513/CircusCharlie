@@ -104,7 +104,7 @@ Material:
     m_Floats:
     - AO_Scale: 0.5
     - Alpha_Clip_Threshold: 0.5
-    - Animation_Cutoff: 20
+    - Animation_Cutoff: 0
     - Distance_Fade_End: 80
     - Distance_Fade_Start: 40
     - Dither_Scale: 1.5
@@ -122,7 +122,7 @@ Material:
     - Wind_Blast: 0.05
     - Wind_Intensity: 0.1
     - Wind_Ripples: 0.05
-    - Wind_Speed: 5
+    - Wind_Speed: 0
     - Wind_Turbulence: 0
     - Wind_Wavelength: 10
     - Wind_Yaw: 180

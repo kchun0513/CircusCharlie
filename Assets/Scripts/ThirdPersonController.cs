@@ -160,6 +160,7 @@ namespace StarterAssets
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
+            _hasAnimator = TryGetComponent(out _animator);
         }
 
         private void Start()
@@ -167,7 +168,7 @@ namespace StarterAssets
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
             
             _hasAnimator = TryGetComponent(out _animator);
-            Debug.Log("_hasAnimator : " + _animator);
+            //Debug.Log("_hasAnimator : " + _animator);
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<StarterAssetsInputs>();
             _input.analogMovement = false;
@@ -201,7 +202,7 @@ namespace StarterAssets
             {
                 UsingXRDevice = false;
             }
-            Debug.Log("XR디바이스 사용 여부 : " + UsingXRDevice + " 정보 : " + _rightController);
+            //Debug.Log("XR디바이스 사용 여부 : " + UsingXRDevice + " 정보 : " + _rightController);
 
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
@@ -212,8 +213,6 @@ namespace StarterAssets
         {
             if (!GameManager.Instance.CheckPaused())
             {
-                _hasAnimator = TryGetComponent(out _animator);
-
                 if (UsingXRDevice)
                 {
                     switch (nowStage)
@@ -236,7 +235,7 @@ namespace StarterAssets
                         case 1: _speed = _input.sprint ? SprintSpeed : MoveSpeed; break;
                     }
                 }
-                RotateCamera();
+                
                 JumpAndGravity();
                 GroundedCheck();
                 Move();
@@ -247,7 +246,8 @@ namespace StarterAssets
         {
             if (!GameManager.Instance.CheckPaused())
             {
-                CameraRotation();
+                //CameraRotation();
+                RotateCamera();
             }
         }
 
@@ -267,10 +267,10 @@ namespace StarterAssets
                 transform.position.z);
             Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
                 QueryTriggerInteraction.Ignore);
-            Debug.Log("spherePosition : " + spherePosition);
-            Debug.Log(_hasAnimator);
-            Debug.Log("GroundLayers : " + GroundLayers);
-            Debug.Log("Grounded : " + Grounded);
+            //Debug.Log("spherePosition : " + spherePosition);
+            //Debug.Log(_hasAnimator);
+            //Debug.Log("GroundLayers : " + GroundLayers);
+            //Debug.Log("Grounded : " + Grounded);
 
             // update animator if using character
             if (_hasAnimator)
@@ -300,45 +300,64 @@ namespace StarterAssets
                 _cinemachineTargetYaw, 0.0f);
         }
 
-        private void Move()
+        private void Move() //Move() 함수 역할별 분리
         {
-            // set target speed based on move speed, sprint speed and if sprint is pressed
-            float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
-            // Debug.Log("HMD Y rotation: " + _mainCamera.transform.eulerAngles.y);
-            //Debug.Log(_input.move.magnitude);
-            // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
+            float targetSpeed = GetTargetSpeed();
+            UpdateSpeed(targetSpeed);
 
-            // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
-            // if there is no input, set the target speed to 0
+            Vector3 inputDirection = GetInputDirection();
+            Quaternion moveRotation = GetMoveRotation();
+
+            Vector3 moveDirection = (moveRotation * inputDirection).normalized;
+
+            ApplyMovement(moveDirection);
+        }
+
+        private float GetTargetSpeed() // 현재 속도
+        {
             if (!UsingXRDevice && _input.move.magnitude < 0.01f)
+                return 0f;
+
+            if (_moveTrigger)
+                return _speed;
+
+            return 0f;
+        }
+
+        private Vector3 GetInputDirection() // 입력 방향
+        {
+            if (nowStage == 1 || nowStage == 2)
             {
-                targetSpeed = 0.0f;
+                if (_moveTrigger)
+                    return Vector3.forward;
+
+                return new Vector3(_input.move.x, 0f, _input.move.y);
             }
-            else if (_moveTrigger) // 컨트롤러 흔들림이 감지되면
+
+            return Vector3.forward;
+        }
+
+        private Quaternion GetMoveRotation() //움직임 회전
+        {
+            if (InputDevices.GetDeviceAtXRNode(XRNode.Head).TryGetFeatureValue(UnityEngine.XR.CommonUsages.deviceRotation, out Quaternion hmdRotation))
             {
-                targetSpeed = _speed;
+                return Quaternion.Euler(0f, hmdRotation.eulerAngles.y, 0f);
             }
             else
             {
-                targetSpeed = 0f;
+                return Quaternion.Euler(0f, CinemachineCameraTarget.transform.eulerAngles.y, 0f);
             }
+        }
 
-            // a reference to the players current horizontal velocity
-            float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
-
+        private void UpdateSpeed(float targetSpeed) //속도 업데이트
+        {
+            float currentSpeed = new Vector3(_controller.velocity.x, 0f, _controller.velocity.z).magnitude;
             float speedOffset = 0.1f;
             float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
 
-            // accelerate or decelerate to target speed
-            if (currentHorizontalSpeed < targetSpeed - speedOffset ||
-                currentHorizontalSpeed > targetSpeed + speedOffset)
+            if (Mathf.Abs(currentSpeed - targetSpeed) > speedOffset)
             {
-                // creates curved result rather than a linear one giving a more organic speed change
-                // note T in Lerp is clamped, so we don't need to clamp our speed
-                _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude,
-                    Time.deltaTime * SpeedChangeRate);
-
-                // round speed to 3 decimal places
+                _speed = Mathf.Lerp(currentSpeed, targetSpeed * inputMagnitude, Time.deltaTime * SpeedChangeRate);
                 _speed = Mathf.Round(_speed * 1000f) / 1000f;
             }
             else
@@ -348,60 +367,20 @@ namespace StarterAssets
 
             _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
             if (_animationBlend < 0.01f) _animationBlend = 0f;
+        }
 
-            // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
-            // if there is a move input rotate player when the player is moving
+        private void ApplyMovement(Vector3 moveDirection) //움직임 적용
+        {
+            _controller.Move(moveDirection * (_speed * Time.deltaTime) + new Vector3(0f, _verticalVelocity, 0f) * Time.deltaTime);
 
-
-            Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
-
-            // move the player
-            // 현재 카메라의 방향을 기준으로 이동 벡터를 변환
-            Vector3 inputDirection;
-            if (nowStage == 1 || nowStage == 2)
-            {
-                if (_moveTrigger)
-                {
-                    // 입력이 없어도 HMD가 바라보는 방향으로 전진
-                    inputDirection = new Vector3(0, 0, 1); // 정면
-                }
-                else
-                {
-                    inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y);
-                }
-            }
-            else {
-                inputDirection = new Vector3(0, 0, 1);
-            }
-            
-            Quaternion moveRotation;
-
-            // XR HMD 회전값 가져오기 헤드셋 방향 진행 250413 김충훈
-            Quaternion hmdRotation;
-            if (InputDevices.GetDeviceAtXRNode(XRNode.Head).TryGetFeatureValue(UnityEngine.XR.CommonUsages.deviceRotation, out hmdRotation))
-            {
-                float hmdY = hmdRotation.eulerAngles.y;
-                moveRotation = Quaternion.Euler(0, hmdY, 0);
-            }
-            else
-            {
-                // Fallback: 일반 카메라 회전값 사용
-                moveRotation = Quaternion.Euler(0, CinemachineCameraTarget.transform.eulerAngles.y, 0);
-            }
-
-            Vector3 moveDirection = moveRotation * inputDirection;
-            moveDirection.Normalize();
-
-            // 이동 적용
-            _controller.Move(moveDirection * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
-
-            // update animator if using character
             if (_hasAnimator)
             {
+                float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
             }
         }
+
 
         private void RotateCamera()
         {
@@ -529,6 +508,12 @@ namespace StarterAssets
 
         private void DetectShakeGesture()
         {
+            if (!_rightController.isValid)
+            {
+                _rightController = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
+                return;
+            }
+
             if (_rightController.TryGetFeatureValue(UnityEngine.XR.CommonUsages.deviceVelocity, out Vector3 velocity))
             {
                 float shakeStrength = (velocity - _lastVelocity).magnitude;
@@ -536,16 +521,11 @@ namespace StarterAssets
                 if (shakeStrength > 1.5f && Time.time - _lastShakeTime > _shakeCooldown)
                 {
                     _lastShakeTime = Time.time;
-
                     _movementState = 1;
-                    // Debug.Log($"🔄 상태 변경: {_movementState} (0: 정지, 1: 걷기)");
                     _moveTrigger = true;
                     SendHapticFeedback(_rightController, 0.7f, 0.15f);
-                    if (whipEffect != null)
-                        whipEffect.PlayWhip();
-
-                    if (whipAnimator != null)
-                        whipAnimator.SetTrigger("Whip");
+                    whipEffect?.PlayWhip();
+                    whipAnimator?.SetTrigger("Whip");
                 }
 
                 _lastVelocity = velocity;
@@ -554,6 +534,12 @@ namespace StarterAssets
 
         private void DetectPullGesture()
         {
+            if (!_rightController.isValid)
+            {
+                _rightController = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
+                return;
+            }
+
             if (_rightController.TryGetFeatureValue(UnityEngine.XR.CommonUsages.devicePosition, out Vector3 currentPosition))
             {
                 float deltaZ = currentPosition.z - _lastPosition.z;
