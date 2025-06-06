@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System.Collections;
+
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 using UnityEngine.XR;
@@ -207,6 +209,7 @@ namespace StarterAssets
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
+            StartCoroutine(VRDeviceProcess());
         }
 
         private void Update()
@@ -215,18 +218,18 @@ namespace StarterAssets
             {
                 if (UsingXRDevice)
                 {
-                    switch (nowStage)
-                    {
-                        case 1:
-                            DetectShakeGesture();
-                            DetectPullGesture();
-                            break;
-                        case 2:
-                            TriggerMoveOfSecondStage();
-                            break;
-                        default:
-                            break;
-                    }
+                    //switch (nowStage)
+                    //{
+                    //    case 1:
+                    //        DetectShakeGesture();
+                    //        DetectPullGesture();
+                    //        break;
+                    //    case 2:
+                    //        TriggerMoveOfSecondStage();
+                    //        break;
+                    //    default:
+                    //        break;
+                    //}
 
                     // 현재 움직임 상태에 따라 속도 설정
                     switch (_movementState)
@@ -249,6 +252,33 @@ namespace StarterAssets
                 //CameraRotation();
                 RotateCamera();
             }
+        }
+
+        private IEnumerator VRDeviceProcess()
+        {
+            while (true)
+            {
+                if (!GameManager.Instance.CheckPaused())
+                {
+                    if (UsingXRDevice)
+                    {
+                        switch (nowStage)
+                        {
+                            case 1:
+                                DetectShakeGesture();
+                                DetectPullGesture();
+                                break;
+                            case 2:
+                                TriggerMoveOfSecondStage();
+                                break;
+                            default:
+                                break;
+                        }
+                    }  
+                }
+                yield return new WaitForSeconds(0.1f);
+            }
+            
         }
 
         private void AssignAnimationIDs()
