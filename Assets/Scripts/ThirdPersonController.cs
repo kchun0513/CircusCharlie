@@ -119,7 +119,7 @@ namespace StarterAssets
 
         private float _lastShakeTime = -1f;
         private float _shakeCooldown = 0.5f;
-        private int _movementState = 0; // 0: 정지, 1: 걷기
+        public int movementState = 0; // 0: 정지, 1: 걷기
 
         private float _baseSpeed = 2.0f;
         private float _walkSpeed = 2.0f;
@@ -232,16 +232,18 @@ namespace StarterAssets
                     //}
 
                     // 현재 움직임 상태에 따라 속도 설정
-                    switch (_movementState)
+                    if (nowStage != 3)
                     {
-                        case 0: _speed = 0f; break;
-                        case 1: _speed = _input.sprint ? SprintSpeed : MoveSpeed; break;
+                        switch (movementState)
+                        {
+                            case 0: _speed = 0f; break;
+                            case 1: _speed = _input.sprint ? SprintSpeed : MoveSpeed; break;
+                        }
+                        JumpAndGravity();
+                        GroundedCheck();
+                        Move();
                     }
                 }
-                
-                JumpAndGravity();
-                GroundedCheck();
-                Move();
             }  
         }
 
@@ -270,6 +272,10 @@ namespace StarterAssets
                                 break;
                             case 2:
                                 TriggerMoveOfSecondStage();
+                                break;
+                            case 3:
+                                DetectShakeGesture();
+                                DetectPullGesture();
                                 break;
                             default:
                                 break;
@@ -356,7 +362,7 @@ namespace StarterAssets
 
         private Vector3 GetInputDirection() // 입력 방향
         {
-            if (nowStage == 1 || nowStage == 2)
+            if (nowStage == 1 || nowStage == 2 || nowStage == 3)
             {
                 if (_moveTrigger)
                     return Vector3.forward;
@@ -551,7 +557,7 @@ namespace StarterAssets
                 if (shakeStrength > 1.5f && Time.time - _lastShakeTime > _shakeCooldown)
                 {
                     _lastShakeTime = Time.time;
-                    _movementState = 1;
+                    movementState = 1;
                     _moveTrigger = true;
                     SendHapticFeedback(_rightController, 0.7f, 0.15f);
                     whipEffect?.PlayWhip();
@@ -577,8 +583,8 @@ namespace StarterAssets
                 if (deltaZ < -0.05f)
                 {
                     // Debug.Log("⏬ 속도 줄이기 (몸 쪽으로 당김)");
-                    _movementState = 0;
-                    // Debug.Log($"🔄 상태 변경: {_movementState} (0: 정지, 1: 걷기)");
+                    movementState = 0; 
+                    // Debug.Log($"🔄 상태 변경: {movementState} (0: 정지, 1: 걷기)");
                     //_speed *= 0.5f;
                     _moveTrigger = false;
                     SendHapticFeedback(_rightController, 0.7f, 0.15f);
@@ -618,19 +624,19 @@ namespace StarterAssets
                 {
                     _speed = 4.0f; // 앞으로
                     _moveTrigger = true;
-                    _movementState = 1;
+                    movementState = 1;
                 }
                 else if (leftTrigger > 0.5f)
                 {
                     _speed = -4.0f; // 앞으로
                     _moveTrigger = true;
-                    _movementState = 1;
+                    movementState = 1;
                 }
                 else
                 {
                     _speed = 0f; // 앞으로
                     _moveTrigger = false;
-                    _movementState = 0;
+                    movementState = 0;
                 }
             }
         }

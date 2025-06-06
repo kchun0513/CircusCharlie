@@ -1,3 +1,4 @@
+using StarterAssets;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -13,6 +14,9 @@ public class AutoRun : MonoBehaviour
     [Tooltip("점프 시 위로 가하는 힘")]
     public float jumpForce = 5f;
 
+    [Header("플레이어")]
+    public GameObject Player;
+
     // Rigidbody 컴포넌트 참조
     private Rigidbody rb;
 
@@ -25,6 +29,8 @@ public class AutoRun : MonoBehaviour
     // 현재 실제로 사용할 이동 속도 (FixedUpdate 때마다 갱신)
     private float currentSpeed;
 
+    private ThirdPersonController playerController;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -32,6 +38,10 @@ public class AutoRun : MonoBehaviour
         // 말 본체와 모든 자식 오브젝트에 붙어 있는 Renderer를 미리 수집
         horseRenderers = GetComponentsInChildren<Renderer>();
 
+        if (Player != null)
+        {
+            playerController = Player.GetComponent<ThirdPersonController>();
+        }
         // 시작할 때는 말이 땅 위에 서 있다고 가정 → 모든 Renderer 보여준다
         SetHorseRenderersVisible(true);
         isGrounded = true;
@@ -57,8 +67,8 @@ public class AutoRun : MonoBehaviour
         }
 
         // 2) Shift 키 입력 체크 → currentSpeed 설정
-        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-        {
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) || playerController.movementState == 1)
+        { 
             // Shift를 누르고 있으면 달리기 속도
             currentSpeed = runSpeed;
         }
