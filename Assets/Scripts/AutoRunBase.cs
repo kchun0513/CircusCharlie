@@ -13,7 +13,7 @@ public class AutoRunBase : MonoBehaviour
     public GameObject Player;
 
     private Rigidbody rb;
-    private float currentSpeed;
+    public float currentSpeed;
     private ThirdPersonController playerController;
 
     void Awake()
@@ -29,14 +29,10 @@ public class AutoRunBase : MonoBehaviour
     void Update()
     {
         // Shift 키 입력 체크 → currentSpeed 설정
-        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) || playerController.movementState == 1)
-        {
-            currentSpeed = runSpeed;
-        }
-        else
-        {
-            currentSpeed = speed;
-        }
+        bool runInput = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) ||
+                        (playerController != null && playerController.movementState == 1);
+
+        currentSpeed = runInput ? runSpeed : speed;
     }
 
     void FixedUpdate()
@@ -44,5 +40,15 @@ public class AutoRunBase : MonoBehaviour
         // 항상 +Z 방향으로 자동 이동
         Vector3 forwardDelta = Vector3.forward * (currentSpeed * Time.fixedDeltaTime);
         rb.MovePosition(rb.position + forwardDelta);
+    }
+
+    public bool GetJumpValue()
+    {
+        return playerController.GetJumpValueForStage3();
+    }
+
+    public void SetJumpFalse()
+    {
+        playerController.SetJumpfalseForStage3();
     }
 }

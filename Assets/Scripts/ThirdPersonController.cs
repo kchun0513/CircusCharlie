@@ -522,6 +522,16 @@ namespace StarterAssets
                 GroundedRadius);
         }
 
+        public bool GetJumpValueForStage3()
+        {
+            return _input.jump;
+        }
+
+        public void SetJumpfalseForStage3()
+        {
+            _input.jump = false;
+        }
+
         private void OnFootstep(AnimationEvent animationEvent)
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
