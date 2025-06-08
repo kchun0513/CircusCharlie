@@ -1037,8 +1037,6 @@ GameObject:
   - component: {fileID: 5885216827943657505}
   - component: {fileID: 135756642000475821}
   - component: {fileID: 4416926081852918493}
-  - component: {fileID: 3434930111023879015}
-  - component: {fileID: 780690528582540419}
   m_Layer: 8
   m_Name: PlayerArmature
   m_TagString: Player
@@ -1124,6 +1122,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveSpeed: 2
+  nowStage: 0
+  UsingXRDevice: 1
   SprintSpeed: 5.335
   RotationSmoothTime: 0.12
   SpeedChangeRate: 10
@@ -1158,6 +1158,8 @@ MonoBehaviour:
   playerBody: {fileID: 0}
   cameraTransform: {fileID: 0}
   mouseSensitivity: 100
+  whipEffect: {fileID: 0}
+  whipAnimator: {fileID: 0}
 --- !u!114 &5885216827943657505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1192,6 +1194,7 @@ MonoBehaviour:
   jump: 0
   sprint: 0
   analogMovement: 0
+  inputValidSec: 0.5
   cursorLocked: 1
   cursorInputForLook: 1
 --- !u!114 &4416926081852918493
@@ -1292,32 +1295,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &3434930111023879015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4416926081852918481}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bf86d0942cfd47c890e567886ad6569, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ropeTransform: {fileID: 0}
---- !u!114 &780690528582540419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4416926081852918481}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bf86d0942cfd47c890e567886ad6569, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ropeTransform: {fileID: 0}
 --- !u!1 &4523139366846529165
 GameObject:
   m_ObjectHideFlags: 0

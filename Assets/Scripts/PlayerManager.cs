@@ -22,7 +22,7 @@ public class PlayerManager : MonoBehaviour
     public static int life = 3; 
     private CharacterController controller;
     private bool isInvincible = false; 
-    private float jumpHeight = 30f;
+    private float jumpHeight = 5f;
     private float gravity = -9.81f;
 
     private void Start()

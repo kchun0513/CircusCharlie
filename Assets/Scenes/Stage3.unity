@@ -189,14 +189,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObstaclePrefabs:
-  - {fileID: 3514898489966070561, guid: 948b345aead024c8e9795a8bd89bc517, type: 3}
-  - {fileID: 3514898489966070561, guid: 948b345aead024c8e9795a8bd89bc517, type: 3}
+  - {fileID: 3514898489966070561, guid: 38013c790ee9644d3af0bbfa151abfe8, type: 3}
+  - {fileID: 3514898489966070561, guid: 38013c790ee9644d3af0bbfa151abfe8, type: 3}
   spawnPoint: {fileID: 2106408771}
   pm: {fileID: 0}
-  spawnInterval_max: 5
+  spawnInterval_max: 2
   spawnInterval_min: 5
   Player: {fileID: 1896160566}
-  spawnerDistance: 100
+  spawnerDistance: 60
 --- !u!1 &100613522
 GameObject:
   m_ObjectHideFlags: 0
@@ -561,10 +561,10 @@ MonoBehaviour:
   - {fileID: 3514898489966070561, guid: 38013c790ee9644d3af0bbfa151abfe8, type: 3}
   spawnPoint: {fileID: 1224725735}
   pm: {fileID: 0}
-  spawnInterval_max: 5
+  spawnInterval_max: 2
   spawnInterval_min: 5
   Player: {fileID: 1896160566}
-  spawnerDistance: 100
+  spawnerDistance: 60
 --- !u!1 &494336359
 GameObject:
   m_ObjectHideFlags: 0
@@ -1865,7 +1865,7 @@ Transform:
   m_GameObject: {fileID: 1224725734}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 6, z: 0}
+  m_LocalPosition: {x: 0, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2961,6 +2961,10 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5012425810019277117, guid: 93b360430d22a4d5abf13958b7d148c0, type: 3}
+      propertyPath: m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5012425810019277117, guid: 93b360430d22a4d5abf13958b7d148c0, type: 3}
       propertyPath: m_ProvidesContacts
       value: 0
       objectReference: {fileID: 0}
@@ -3307,7 +3311,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   runSpeed: 10
-  jumpForce: 10
+  jumpForce: 8
   isGrounded: 1
   HorseBase: {fileID: 1802127274}
 --- !u!114 &1641050793
@@ -3346,7 +3350,7 @@ MonoBehaviour:
   LifeText: {fileID: 1109393648}
   BonusText: {fileID: 66923971}
   StartPoint: {fileID: 350805656}
-  Player: {fileID: 1641050784}
+  Player: {fileID: 1896160566}
   Hearts:
   - {fileID: 2018312594}
   - {fileID: 1098315261}
@@ -3387,7 +3391,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
   FootstepAudioVolume: 0.5
   JumpHeight: 1.5
-  Gravity: -20
+  Gravity: -30
   JumpTimeout: 0
   FallTimeout: 0
   Grounded: 1

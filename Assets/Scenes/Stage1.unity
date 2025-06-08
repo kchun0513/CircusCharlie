@@ -1267,7 +1267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  jumpHeight: 1
+  jumpHeight: 2
   gravity: -9.81
   sprintSpeed: 10
   whipEffect: {fileID: 871816701}

@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 7277663804193833400}
   - component: {fileID: 2136966361019389946}
   m_Layer: 0
-  m_Name: low_road
+  m_Name: trampoline_100
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
