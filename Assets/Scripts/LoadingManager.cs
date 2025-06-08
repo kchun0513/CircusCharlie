@@ -21,13 +21,21 @@ public class LoadingManager : MonoBehaviour
 
     void Start()
     {
-        audioSource = GetComponent<AudioSource>(); 
+        audioSource = GetComponent<AudioSource>();
+        // 스테이지 클리어 시에만 BGM 페이드아웃
+        if (GameManager.Instance.isStageClear)
+        {
+            SoundManager.Instance.FadeOutBGM(3.0f); // 3초 동안 페이드아웃
+            GameManager.Instance.isStageClear = false; // 한 번만 동작하게 초기화
+        }
+
         if (GameManager.Instance.nowStage == -1)
         {
             StageText.text = "GAME OVER!";
             PointText.text = "POINT : " + GameManager.Instance.score.ToString();
             LifeText.text = "More practice!";
-        } else
+        }
+        else
         {
             StageText.text = "STAGE " + (GameManager.Instance.nowStage + 1).ToString();
             PointText.text = "POINT : " + GameManager.Instance.score.ToString();
@@ -184,7 +192,8 @@ public class LoadingManager : MonoBehaviour
         {
             GameManager.Instance.SceneChange(0);
         }
-        else if (GameManager.Instance.nowStage == 3) {
+        else if (GameManager.Instance.nowStage == 3)
+        {
             GameManager.Instance.SceneChange(2);
         }
         else

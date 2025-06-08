@@ -1,0 +1,20 @@
+	Circus Music Album - 052818
+	Artist: GWriterStudio
+1. How To Get In
+2. First Show
+3. Fantasy Circus
+4. Illusions
+5. Magic Tricks
+6. Wheel Of Fortune
+7. Blue Clow
+8. Magical Tophat
+9. Step In
+10. Last Moment
+
+Please use .wav for looping sound in Unity without problems.
+Remove .mp3 if not needded
+
+Support me : https://patreon.com/gwriterstudio
+
+Have Questions contact me via gmail:
+gwriterstudio@gmail.com

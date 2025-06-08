@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     public Button settingButton;
     public Button scoreButton;
     private bool _isPaused = false;
+    public bool isStageClear = false;
+
 
     private void Awake()
     {
@@ -32,6 +34,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        SoundManager.Instance.PlayStageBGM(0);
+        
         // Register the GoSetting callback when the button is clicked
         settingButton.onClick.AddListener(GoSetting);
         scoreButton.onClick.AddListener(GoScoreBoard);
@@ -44,10 +48,14 @@ public class GameManager : MonoBehaviour
     public void StageChange(int num)
     {
         nowStage = num;
+        
+        SoundManager.Instance.PlayStageBGM(nowStage);   // BGM 재생 관련 코드
+
         if (nowStage == 1)
         {
             GamePause();
-        } else
+        }
+        else
         {
             GameRestart();
         }
@@ -56,6 +64,8 @@ public class GameManager : MonoBehaviour
 
     public void StageClear()
     {
+        isStageClear = true;
+
         // 스테이지 클리어 후 10000점을 넘은 경우 목숨을 하나 추가한다.
         if ((score + pointGet) / 10000 > score / 10000)
         {

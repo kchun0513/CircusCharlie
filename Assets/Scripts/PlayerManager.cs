@@ -41,6 +41,7 @@ public class PlayerManager : MonoBehaviour
             //if (other == null || other.gameObject == null) return;
             if (other.CompareTag("PointCheck") && !isInvincible)
             {
+                SoundManager.Instance.PlayCrowdReaction(true);
                 Debug.Log("100 Points!");
                 point += 100;
                 Debug.Log("���� : " + point);
@@ -48,6 +49,7 @@ public class PlayerManager : MonoBehaviour
             }
             if (other.CompareTag("PointCheck5") && !isInvincible)
             {
+                SoundManager.Instance.PlayCrowdReaction(true);
                 Debug.Log("500 Points!");
                 point += 500;
                 Debug.Log("���� : " + point);
@@ -61,6 +63,7 @@ public class PlayerManager : MonoBehaviour
             //}
             if (other.CompareTag("Obstacle") && !isInvincible)
             {
+                SoundManager.Instance.PlayCrowdReaction(false);
                 Debug.Log(other);
                 Debug.Log("You are collide!");
                 StartCoroutine(HandleObstacleCollision());
