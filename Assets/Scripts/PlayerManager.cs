@@ -37,8 +37,8 @@ public class PlayerManager : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!clear) {
-            Debug.Log(other.gameObject);
-            if (other == null || other.gameObject == null) return;
+            //Debug.Log(other.gameObject);
+            //if (other == null || other.gameObject == null) return;
             if (other.CompareTag("PointCheck") && !isInvincible)
             {
                 Debug.Log("100 Points!");

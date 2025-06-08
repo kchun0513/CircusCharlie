@@ -29,8 +29,7 @@ public class ObjGenController : MonoBehaviour
         {
             float interval = Random.Range(spawnInterval_min, spawnInterval_max);
             if (!GameManager.Instance.CheckPaused())
-                //if (true)
-                {
+            {
                 spawnPosition = spawnPoint.position;
                 spawnPosition.z = Player.transform.position.z + spawnerDistance;
                 //Debug.Log(spawnPosition);
@@ -39,7 +38,6 @@ public class ObjGenController : MonoBehaviour
                 newObj = Instantiate(ObstaclePrefabs[result], spawnPosition, spawnPoint.rotation);
 
                 Objects.Add(newObj);
-                
             }
             yield return new WaitForSeconds(interval);
         }
@@ -51,7 +49,7 @@ public class ObjGenController : MonoBehaviour
         {
             if (Objects[i].transform.position.z < 0)
             {
-                //Destroy(Objects[i]);
+                Destroy(Objects[i]);
                 //Objects[i].SetActive(false);
                 Objects.RemoveAt(i);
             }
@@ -62,7 +60,7 @@ public class ObjGenController : MonoBehaviour
     {
         for (int i = Objects.Count - 1; i >= 0; i--)
         {
-            //Objects[i].SetActive(false);
+            Destroy(Objects[i]);
             Objects.RemoveAt(i);
         }
     }
