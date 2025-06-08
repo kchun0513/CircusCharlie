@@ -2474,8 +2474,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObstaclePrefabs:
-  - {fileID: 3514898489966070561, guid: bb08e289ec1a98140b1d6fc270a7f02b, type: 3}
-  - {fileID: 3514898489966070561, guid: bb08e289ec1a98140b1d6fc270a7f02b, type: 3}
+  - {fileID: 3514898489966070561, guid: 399940191af8642fd9fe2747c8649d73, type: 3}
+  - {fileID: 3514898489966070561, guid: 399940191af8642fd9fe2747c8649d73, type: 3}
   spawnPoint: {fileID: 2106408771}
   pm: {fileID: 1896160598}
   spawnInterval_max: 2
@@ -65621,7 +65621,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   runSpeed: 10
-  jumpForce: 8
+  jumpForce: 16
+  extraGravity: 4
   isGrounded: 1
   jumpRequested: 0
   HorseBase: {fileID: 1802127274}
@@ -65704,7 +65705,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
   FootstepAudioVolume: 0.5
   JumpHeight: 1.5
-  Gravity: -30
+  Gravity: -50
   JumpTimeout: 0
   FallTimeout: 0
   Grounded: 1
@@ -75949,6 +75950,7 @@ MonoBehaviour:
   speed: 5
   runSpeed: 10
   jumpForce: 10
+  extraGravity: 2
   isGrounded: 1
   jumpRequested: 0
   HorseBase: {fileID: 0}

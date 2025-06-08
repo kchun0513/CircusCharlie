@@ -13,6 +13,8 @@ public class AutoRun : MonoBehaviour
     [Header("점프 설정")]
     [Tooltip("점프 시 위로 가하는 힘")]
     public float jumpForce = 5f;
+    [Tooltip("추가 중력 배율")]
+    public float extraGravity = 2f;
 
     // Rigidbody 컴포넌트 참조
     private Rigidbody rb;
@@ -101,6 +103,12 @@ public class AutoRun : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!isGrounded)
+        {
+            // 추가 중력 가속도를 적용하여 낙하 속도를 빠르게 함
+            rb.AddForce(Physics.gravity * (extraGravity - 1f), ForceMode.Acceleration);
+        }
+
         // ③ 예약된 점프 실행 (물리 프레임 안에서 한 번만)
         if (jumpRequested)
         {
