@@ -47,6 +47,9 @@ public class GameManager : MonoBehaviour
         if (nowStage == 1)
         {
             GamePause();
+        } else
+        {
+            GameRestart();
         }
         SceneManager.LoadScene(Stages[nowStage]);
     }

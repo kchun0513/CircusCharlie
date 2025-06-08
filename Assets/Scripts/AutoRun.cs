@@ -26,7 +26,7 @@ public class AutoRun : MonoBehaviour
 
     // 현재 실제로 사용할 이동 속도 (FixedUpdate 때마다 갱신)
     private float currentSpeed;
-    private bool jumpRequested;
+    public bool jumpRequested;
 
     [Header("HorseBase")]
     public GameObject HorseBase;
@@ -49,6 +49,14 @@ public class AutoRun : MonoBehaviour
 
         // 초기 currentSpeed는 기본 speed
         currentSpeed = autoRun.currentSpeed;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("PlayerJump"))
+        {
+            jumpRequested = true;
+        }
     }
 
     void Update()

@@ -39,7 +39,8 @@ public class ObjectController : MonoBehaviour
     void FixedUpdate()
     {
         if (!GameManager.Instance.CheckPaused())
-        {
+        //if (true)
+            {
             if (rb != null)
             {
                 // MovePosition으로 부드럽게 이동

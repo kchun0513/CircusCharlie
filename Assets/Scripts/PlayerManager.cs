@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
+using Oculus.Interaction;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class PlayerManager : MonoBehaviour
     public Image[] Hearts;
     public Sprite Heart;
     public Sprite EmptyHeart;
-    public ObjGenController objCon;
+    public ObjGenController[] objCon;
     private int point = 0;
     public int bonusPoint = 5000;
     private bool clear = false;
@@ -36,6 +37,8 @@ public class PlayerManager : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!clear) {
+            Debug.Log(other.gameObject);
+            if (other == null || other.gameObject == null) return;
             if (other.CompareTag("PointCheck") && !isInvincible)
             {
                 Debug.Log("100 Points!");
@@ -50,14 +53,15 @@ public class PlayerManager : MonoBehaviour
                 Debug.Log("���� : " + point);
                 UpdateUI();
             }
-            if (other.CompareTag("PlayerJump") && !isInvincible)
-            {
-                Debug.Log("Jump!");
-                // 자연스러운 점프: 짧은 기간 동안 위로 이동
-                StartCoroutine(JumpCoroutine());
-            }
+            //if (other.CompareTag("PlayerJump") && !isInvincible)
+            //{
+            //    Debug.Log("Jump!");
+            //    // 자연스러운 점프: 짧은 기간 동안 위로 이동
+            //    StartCoroutine(JumpCoroutine());
+            //}
             if (other.CompareTag("Obstacle") && !isInvincible)
             {
+                Debug.Log(other);
                 Debug.Log("You are collide!");
                 StartCoroutine(HandleObstacleCollision());
             }
@@ -68,8 +72,11 @@ public class PlayerManager : MonoBehaviour
             if (!clear)
             {
                 clear = true;
-                point = point + bonusPoint;                
-                objCon.removeObject();
+                point = point + bonusPoint;
+                for (int i = 0; i < objCon.Length; i++) {
+                    objCon[i].removeObject();
+                }
+                
                 GameObject deathZone = GameObject.FindWithTag("Obstacle");
                 // in stage2, this part error. So we check if deathZone is Null.
                 if (deathZone != null)
@@ -119,11 +126,7 @@ public class PlayerManager : MonoBehaviour
         GameManager.Instance.StageClear();
 
         // Stage 4 == GameClear
-        if (GameManager.Instance.nowStage == 3){ 
-            GameClear();
-        } else{
-            GameManager.Instance.SceneChange(1);
-        }
+        GameManager.Instance.SceneChange(1);
     }
 
     private void GameClear()
@@ -177,7 +180,10 @@ public class PlayerManager : MonoBehaviour
         controller.enabled = false; 
         Player.transform.position = StartPoint.transform.position;
         controller.enabled = true;
-        objCon.removeObject();
+        for (int i = 0; i < objCon.Length; i++)
+        {
+            objCon[i].removeObject();
+        }
         GameManager.Instance.life--;
         point = 0;
         bonusPoint = 5000;

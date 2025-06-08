@@ -152,6 +152,17 @@ public class LoadingManager : MonoBehaviour
                     StageText.text = "GAME OVER!";
                 }
             }
+            else if (GameManager.Instance.nowStage == 3)
+            {
+                if (StageText.text == "ALL CLEAR!")
+                {
+                    StageText.text = "";
+                }
+                else
+                {
+                    StageText.text = "ALL CLEAR!";
+                }
+            }
             else
             {
                 if (StageText.text == "STAGE " + (GameManager.Instance.nowStage + 1).ToString())
@@ -172,7 +183,11 @@ public class LoadingManager : MonoBehaviour
         if (GameManager.Instance.nowStage == -1)
         {
             GameManager.Instance.SceneChange(0);
-        } else
+        }
+        else if (GameManager.Instance.nowStage == 3) {
+            GameManager.Instance.SceneChange(2);
+        }
+        else
         {
             GameManager.Instance.StageChange(GameManager.Instance.nowStage);
         }

@@ -71895,7 +71895,8 @@ MonoBehaviour:
   - {fileID: 200192114}
   Heart: {fileID: 4606908045521496030, guid: 2b8558b645a07d74582677fd0bf9dfa9, type: 3}
   EmptyHeart: {fileID: -3094302376565900353, guid: c52c66e8c335c1640a21e3d2c274bfd7, type: 3}
-  objCon: {fileID: 88890485}
+  objCon:
+  - {fileID: 88890485}
   bonusPoint: 5000
 --- !u!114 &1818634144
 MonoBehaviour:
