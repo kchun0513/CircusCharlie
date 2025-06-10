@@ -59,6 +59,7 @@ public class ScoringManager : MonoBehaviour
             string csvPath = Path.Combine(Application.persistentDataPath, "ScoreRecord.csv");
             string line = GameManager.Instance.score + "," + initials;
             File.AppendAllText(csvPath, line + System.Environment.NewLine);
+            Destroy(GameManager.Instance.gameObject);
             GameManager.Instance.SceneChange(0);
             // TODO: GameManager.Instance.SetPlayerInitials(initials);
         }

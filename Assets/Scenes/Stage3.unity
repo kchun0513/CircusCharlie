@@ -80205,6 +80205,10 @@ PrefabInstance:
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2363624711116538859, guid: 216b791fa321dc049ae3894028237781, type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 1641050784}
+    - target: {fileID: 2363624711116538859, guid: 216b791fa321dc049ae3894028237781, type: 3}
       propertyPath: amplitude
       value: 0.3
       objectReference: {fileID: 0}

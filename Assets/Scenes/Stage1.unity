@@ -1340,8 +1340,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab0df9c1efa264243b02e47abb88a6e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amplitude: 0.05
+  amplitude: 0.2
   frequency: 3
+  Player: {fileID: 364779984}
 --- !u!4 &503866821 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3893294197879345259, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
