@@ -58,6 +58,7 @@ public class AutoRun : MonoBehaviour
         if (other.CompareTag("PlayerJump"))
         {
             jumpRequested = true;
+            SoundManager.Instance.PlaySFX(SoundManager.Instance.jumpClip);
         }
     }
 

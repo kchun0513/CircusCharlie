@@ -24,6 +24,7 @@ public class PlayerRespawn : MonoBehaviour
         // 바닥에 닿으면 리스폰 시작
         if (!isRespawning && hit.gameObject.CompareTag("DeathZone"))
         {
+            SoundManager.Instance.PlaySFX(SoundManager.Instance.fallingClip); // falling 효과음 재생
             Debug.Log("떨어졌습니다. 리스폰 위치로 이동 + 카운트다운 시작!");
             StartCoroutine(RespawnWithCountdown());
         }

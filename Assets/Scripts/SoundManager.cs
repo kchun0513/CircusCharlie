@@ -17,6 +17,9 @@ public class SoundManager : MonoBehaviour
     public AudioSource crowdAudioSource;   // SFX 전용 AudioSource
     public AudioClip cheerClip;
     public AudioClip booClip;
+    public AudioClip clearClip;
+    public AudioClip fallingClip;
+    public AudioClip jumpClip;
 
     private AudioClip clipToPlayDelayed;
 

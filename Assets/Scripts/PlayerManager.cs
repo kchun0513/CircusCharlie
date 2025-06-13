@@ -101,6 +101,7 @@ public class PlayerManager : MonoBehaviour
                 PointText.text = "POINT : " + point.ToString();
                 LifeText.text = "Stage Clear!";
 
+                SoundManager.Instance.PlaySFX(SoundManager.Instance.clearClip); // 효과음 재생
              
                 Invoke("StageClear", 3f);
                 

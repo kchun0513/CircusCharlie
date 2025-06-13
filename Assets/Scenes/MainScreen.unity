@@ -15192,10 +15192,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2bc1e0481851a45468f55a2bba396629, type: 3}
   - {fileID: 8300000, guid: 8f8a14f5a6806b049a9f16658d51c6d4, type: 3}
   - {fileID: 8300000, guid: 17100f1635825a74c98d6d015485373d, type: 3}
-  mainScreenBGM: {fileID: 8300000, guid: 79cba7fb9ffadae42aed432a8b94afe4, type: 3}
+  mainScreenBGM: {fileID: 8300000, guid: 7d2779300ebbe6946a2e6a770f78ee01, type: 3}
   crowdAudioSource: {fileID: 1226976126}
   cheerClip: {fileID: 8300000, guid: 826e8a83061645f4cb56b85ae1e6e66e, type: 3}
   booClip: {fileID: 8300000, guid: eba027b421000df4999bfdfdfb5c3700, type: 3}
+  clearClip: {fileID: 8300000, guid: e8d9519d388cd204ca98c5946a2c5e83, type: 3}
+  fallingClip: {fileID: 8300000, guid: c72a7483058b18e4bb3e2a82dcb79fc7, type: 3}
+  jumpClip: {fileID: 8300000, guid: 811e9df875ea8a649b3d6c064b051324, type: 3}
 --- !u!82 &1226976126
 AudioSource:
   m_ObjectHideFlags: 0
