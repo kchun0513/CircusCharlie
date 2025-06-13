@@ -1,24 +1,18 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-using System.Collections;
 using UnityEngine;
 
 public class WhipEffect : MonoBehaviour
 {
     public TrailRenderer whipTrail;
-    public AudioSource audioSource;
     public AudioClip whipSoundClip;
+    // (기존의 public AudioSource audioSource; 필드는 삭제)
 
     public void PlayWhip()
     {
         StartCoroutine(ShowTrail());
-        
-        if (audioSource != null && whipSoundClip != null)
-        {
-            audioSource.PlayOneShot(whipSoundClip);
-        }
+        // 로컬 audioSource는 더 이상 사용하지 않고 SoundManager로만 재생
+        if (SoundManager.Instance != null && whipSoundClip != null)
+            SoundManager.Instance.PlaySFX(whipSoundClip);
     }
 
     IEnumerator ShowTrail()

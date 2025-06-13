@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
@@ -7,14 +8,17 @@ public class SoundManager : MonoBehaviour
 
     public AudioSource bgmSource;
     public AudioClip[] stageBGMs;
-    private bool isFadingOut = false;
-    private float fadeOutDuration = 0f;
-    private float fadeOutTimer = 0f;
+    private bool isFadingOut;
+    private float fadeOutDuration;
+    private float fadeOutTimer;
     private float initialVolume = 1f;
     public AudioClip mainScreenBGM;
-    public AudioSource crowdAudioSource;
+
+    public AudioSource crowdAudioSource;   // SFX 전용 AudioSource
     public AudioClip cheerClip;
     public AudioClip booClip;
+
+    private AudioClip clipToPlayDelayed;
 
     void Awake()
     {
@@ -22,6 +26,18 @@ public class SoundManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
+            // 저장된 볼륨(0~10) 불러와서 0~1로 변환하여 적용
+            float master01 = PlayerPrefs.GetInt("MasterLevel", 10) / 10f;
+            AudioListener.volume = master01;
+
+            float bgm01 = PlayerPrefs.GetInt("BGMLevel", 10) / 10f;
+            if (bgmSource != null)
+                bgmSource.volume = bgm01;
+
+            float sfx01 = PlayerPrefs.GetInt("SFXLevel", 10) / 10f;
+            if (crowdAudioSource != null)
+                crowdAudioSource.volume = sfx01;
         }
         else
         {
@@ -31,9 +47,8 @@ public class SoundManager : MonoBehaviour
 
     public void PlayStageBGM(int stageIndex)
     {
-        string sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+        string sceneName = SceneManager.GetActiveScene().name;
 
-        // Main BGM 화면 목록
         if (sceneName == "MainScreen" ||
             sceneName == "ScoreScreen" ||
             sceneName == "SettingScreen" ||
@@ -44,29 +59,21 @@ public class SoundManager : MonoBehaviour
 
             bgmSource.clip = mainScreenBGM;
             bgmSource.loop = true;
-            bgmSource.volume = 0.5f;
-            bgmSource.Play();
+            bgmSource.Play();  // 저장된 볼륨 유지
             return;
         }
 
         if (bgmSource.isPlaying && bgmSource.clip == stageBGMs[stageIndex])
-            return; // 이미 같은 곡이 재생 중이면 아무것도 안 함
+            return;
 
         bgmSource.clip = stageBGMs[stageIndex];
         bgmSource.loop = true;
-        bgmSource.volume = 1f;
-        bgmSource.Play();
+        bgmSource.Play();  // 저장된 볼륨 유지
     }
 
-    public void StopBGM()
-    {
-        bgmSource.Stop();
-    }
+    public void StopBGM() => bgmSource.Stop();
 
-    public void FadeOutBGM(float duration)
-    {
-        StartCoroutine(FadeOutCoroutine(duration));
-    }
+    public void FadeOutBGM(float duration) => StartCoroutine(FadeOutCoroutine(duration));
 
     private IEnumerator FadeOutCoroutine(float duration)
     {
@@ -98,14 +105,26 @@ public class SoundManager : MonoBehaviour
             return;
         }
 
-        this.clipToPlayDelayed = clipToPlay;
+        clipToPlayDelayed = clipToPlay;
         Invoke(nameof(PlayCrowdClipNow), 0.2f);
     }
 
-    private AudioClip clipToPlayDelayed;
+    private void PlayCrowdClipNow() => crowdAudioSource.PlayOneShot(clipToPlayDelayed);
 
-    private void PlayCrowdClipNow()
+    // BGM 볼륨 API
+    public void SetBGMVolume(float volume01) => bgmSource.volume = Mathf.Clamp01(volume01);
+    public void ChangeBGMVolume(float delta) => SetBGMVolume(bgmSource.volume + delta);
+
+    // SFX 볼륨 API
+    public void SetSFXVolume(float v) => crowdAudioSource.volume = Mathf.Clamp01(v);
+    public void ChangeSFXVolume(float d) => SetSFXVolume(crowdAudioSource.volume + d);
+
+    /// <summary>
+    /// 범용 SFX 재생 API: 모든 효과음을 crowdAudioSource로 재생합니다.
+    /// </summary>
+    public void PlaySFX(AudioClip clip)
     {
-        crowdAudioSource.PlayOneShot(clipToPlayDelayed);
+        if (crowdAudioSource != null && clip != null)
+            crowdAudioSource.PlayOneShot(clip);
     }
 }

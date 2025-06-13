@@ -2,94 +2,113 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Audio;
-using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.SceneManagement;
 
+/// <summary>
+/// 세팅 화면에서 Master / BGM / SFX 볼륨을 조절합니다.
+/// AudioMixer 없이 AudioListener와 SoundManager 인스턴스를 직접 사용합니다.
+/// </summary>
 public class SettingManager : MonoBehaviour
 {
-    public AudioMixer audioMixer;            // “MasterVolume” Exposed Param
+    [Header("Master Volume")]
     public Button masterMinusButton;
     public Button masterPlusButton;
     public TMP_Text masterValueText;
     private int masterLevel;
-    private const int MinLevel = 0, MaxLevel = 10;
 
-    [Header("Vignette Toggle (나중에 적용)")]
-    public Toggle vignetteToggle;
-    // (Vignette 적용은 다음 단계에서 여기에 로직 추가)
+    [Header("BGM Volume")]
+    public Button bgmMinusButton;
+    public Button bgmPlusButton;
+    public TMP_Text bgmValueText;
+    private int bgmLevel;
+
+    [Header("SFX Volume")]
+    public Button sfxMinusButton;
+    public Button sfxPlusButton;
+    public TMP_Text sfxValueText;
+    private int sfxLevel;
 
     public Button exitButton;
 
-    private void Awake()
+    private const int MinLevel = 0;
+    private const int MaxLevel = 10;
+
+    void Start()
     {
-        Debug.Log("[SettingManager] Awake() called");
-    }
+        // 1) 이전 저장값 로드
+        masterLevel = PlayerPrefs.GetInt("MasterLevel", MaxLevel);
+        bgmLevel    = PlayerPrefs.GetInt("BGMLevel",    MaxLevel);
+        sfxLevel    = PlayerPrefs.GetInt("SFXLevel",    MaxLevel);
 
-    private void Start()
-    {
-        Debug.Log("[SettingManager] Start() called");
-        // 1) 이전 저장값 불러오기 (기본 10)
-        masterLevel = PlayerPrefs.GetInt("MasterLevel", 10);
+        // 2) UI 및 볼륨 적용
+        UpdateMasterUI(); ApplyMasterVolume(masterLevel);
+        UpdateBGMUI();    ApplyBGMVolume(bgmLevel);
+        UpdateSFXUI();    ApplySFXVolume(sfxLevel);
 
-        // 2) UI 초기화
-        UpdateMasterUI();
+        // 3) 버튼 콜백 등록
+        masterMinusButton.onClick.AddListener(() => ChangeMasterLevel(-1));
+        masterPlusButton .onClick.AddListener(() => ChangeMasterLevel(+1));
+        bgmMinusButton   .onClick.AddListener(() => ChangeBGMLevel(-1));
+        bgmPlusButton    .onClick.AddListener(() => ChangeBGMLevel(+1));
+        sfxMinusButton   .onClick.AddListener(() => ChangeSFXLevel(-1));
+        sfxPlusButton    .onClick.AddListener(() => ChangeSFXLevel(+1));
 
-        // 3) 버튼 콜백 연결
-        masterMinusButton.onClick.AddListener(() =>
-        {
-            ChangeMasterLevel(-1);
-        });
-        masterPlusButton.onClick.AddListener(() =>
-        {
-            ChangeMasterLevel(+1);
-        });
-
-        // 이걸 앞에 안넣어서 계속 실행이 안됐네. 해결
-        if (exitButton == null)
-        {
-            Debug.LogError("[SettingManager] exitButton is null!");
-        }
-        else
-        {
-            Debug.Log("[SettingManager] exitButton assigned: " + exitButton.name);
-            exitButton.onClick.AddListener(GoMain);
-            Debug.Log("[SettingManager] exitButton listener registered");
-        }
-
-        // 4) Toggle 콜백 (추후 로직 연결)
-        vignetteToggle.onValueChanged.AddListener(isOn =>
-        {
-            // TODO: Vignette 효과 On/Off 로직
-            Debug.Log("Vignette toggled: " + isOn);
-            PlayerPrefs.SetInt("UseVignette", isOn ? 1 : 0);
-        });
-
-        
+        // 4) 종료 버튼
+        exitButton.onClick.AddListener(GoMain);
     }
 
     private void ChangeMasterLevel(int delta)
     {
         masterLevel = Mathf.Clamp(masterLevel + delta, MinLevel, MaxLevel);
         PlayerPrefs.SetInt("MasterLevel", masterLevel);
-        UpdateMasterUI();
-
-        // 0~10 을 -80dB~0dB 로 매핑
-        float db = Mathf.Lerp(-80f, 0f, masterLevel / (float)MaxLevel);
-        audioMixer.SetFloat("MasterVolume", db);
+        UpdateMasterUI(); ApplyMasterVolume(masterLevel);
     }
 
-    private void UpdateMasterUI()
+    private void ChangeBGMLevel(int delta)
     {
-        masterValueText.text = masterLevel.ToString();
+        bgmLevel = Mathf.Clamp(bgmLevel + delta, MinLevel, MaxLevel);
+        PlayerPrefs.SetInt("BGMLevel", bgmLevel);
+        UpdateBGMUI(); ApplyBGMVolume(bgmLevel);
+    }
+
+    private void ChangeSFXLevel(int delta)
+    {
+        sfxLevel = Mathf.Clamp(sfxLevel + delta, MinLevel, MaxLevel);
+        PlayerPrefs.SetInt("SFXLevel", sfxLevel);
+        UpdateSFXUI(); ApplySFXVolume(sfxLevel);
+    }
+
+    private void UpdateMasterUI() => masterValueText.text = masterLevel.ToString();
+    private void UpdateBGMUI()    => bgmValueText   .text = bgmLevel   .ToString();
+    private void UpdateSFXUI()    => sfxValueText   .text = sfxLevel   .ToString();
+
+    // Master: 0~10 -> 0~1 범위로 매핑하여 AudioListener.volume에 적용
+    private void ApplyMasterVolume(int level)
+    {
+        float vol01 = level / (float)MaxLevel;
+        AudioListener.volume = vol01;
+    }
+
+    // BGM: 0~10 -> 0~1 범위로 매핑하여 SoundManager에 적용
+    private void ApplyBGMVolume(int level)
+    {
+        float vol01 = level / (float)MaxLevel;
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.SetBGMVolume(vol01);
+    }
+
+    // SFX: 0~10 -> 0~1 범위로 매핑하여 SoundManager에 적용
+    private void ApplySFXVolume(int level)
+    {
+        float vol01 = level / (float)MaxLevel;
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.SetSFXVolume(vol01);
     }
 
     public void GoMain()
     {
-        Debug.Log("[Settings] Exit 버튼 클릭 → GoMain() 실행");
-        Destroy(GameManager.Instance.gameObject);  // 재시작을 위해 
+        Destroy(GameManager.Instance.gameObject);
         GameManager.Instance.SceneChange(0);
     }
-
 }
