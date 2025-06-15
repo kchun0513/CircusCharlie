@@ -2439,6 +2439,7 @@ GameObject:
   m_Component:
   - component: {fileID: 67264773}
   - component: {fileID: 67264774}
+  - component: {fileID: 67264775}
   m_Layer: 0
   m_Name: Object Generator
   m_TagString: Untagged
@@ -2468,7 +2469,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 67264772}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 36a8d54cb9238d74bbb2178a2feb3993, type: 3}
   m_Name: 
@@ -2482,6 +2483,30 @@ MonoBehaviour:
   spawnInterval_min: 5
   Player: {fileID: 1896160566}
   spawnerDistance: 60
+--- !u!114 &67264775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67264772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fee3202ce42c22540ba923bd44cc5b79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObstaclePrefabs:
+  - {fileID: 3514898489966070561, guid: 399940191af8642fd9fe2747c8649d73, type: 3}
+  - {fileID: 3514898489966070561, guid: bb08e289ec1a98140b1d6fc270a7f02b, type: 3}
+  spawnPoint: {fileID: 2106408771}
+  pm: {fileID: 1896160598}
+  Player: {fileID: 1896160566}
+  spawnerDistance: 100
+  spawnIntervalMin: 0.7
+  spawnIntervalMax: 1.5
+  spawnYPositions:
+  - 4
+  - 7
 --- !u!1001 &67391062
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -49452,7 +49477,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1224725735
 Transform:
   m_ObjectHideFlags: 0
@@ -65673,6 +65698,7 @@ MonoBehaviour:
   - {fileID: 67264774}
   - {fileID: 487519069}
   bonusPoint: 5000
+  clear: 0
 --- !u!114 &1641050795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70678,7 +70704,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   whipTrail: {fileID: 1757355232}
-  audioSource: {fileID: 1757355230}
   whipSoundClip: {fileID: 8300000, guid: 446491748597be64e8f6a933e079b68f, type: 3}
 --- !u!96 &1757355232
 TrailRenderer:
@@ -75981,6 +76006,7 @@ MonoBehaviour:
   - {fileID: 67264774}
   - {fileID: 487519069}
   bonusPoint: 5000
+  clear: 0
 --- !u!1001 &1900117149
 PrefabInstance:
   m_ObjectHideFlags: 0
