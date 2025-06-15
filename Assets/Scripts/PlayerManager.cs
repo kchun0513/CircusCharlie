@@ -19,7 +19,7 @@ public class PlayerManager : MonoBehaviour
     public ObjGenController[] objCon;
     private int point = 0;
     public int bonusPoint = 5000;
-    private bool clear = false;
+    public bool clear = false;
     public static int life = 3; 
     private CharacterController controller;
     private bool isInvincible = false; 
@@ -66,6 +66,13 @@ public class PlayerManager : MonoBehaviour
                 SoundManager.Instance.PlayCrowdReaction(false);
                 Debug.Log(other);
                 Debug.Log("You are collide!");
+                StartCoroutine(HandleObstacleCollision());
+            }
+            if (other.CompareTag("DeathZone") && !isInvincible)
+            {
+                SoundManager.Instance.PlayCrowdReaction(false);
+                Debug.Log(other);
+                Debug.Log("You are fallen!");
                 StartCoroutine(HandleObstacleCollision());
             }
         }
