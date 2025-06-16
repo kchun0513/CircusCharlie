@@ -2497,13 +2497,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObstaclePrefabs:
   - {fileID: 3514898489966070561, guid: 399940191af8642fd9fe2747c8649d73, type: 3}
-  - {fileID: 3514898489966070561, guid: bb08e289ec1a98140b1d6fc270a7f02b, type: 3}
+  - {fileID: 3514898489966070561, guid: 399940191af8642fd9fe2747c8649d73, type: 3}
   spawnPoint: {fileID: 2106408771}
   pm: {fileID: 1896160598}
   Player: {fileID: 1896160566}
   spawnerDistance: 100
-  spawnIntervalMin: 0.7
-  spawnIntervalMax: 1.5
+  spawnIntervalMin: 0.4
+  spawnIntervalMax: 2
   spawnYPositions:
   - 4
   - 7
