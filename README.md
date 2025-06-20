@@ -78,18 +78,29 @@
 
 ## 주요 스크립트
 [GameManager](https://github.com/kchun0513/CircusCharlie/blob/main/Assets/Scripts/GameManager.cs) : 게임 실행, 정지 및 화면 전환
+
 [SoundManager](https://github.com/kchun0513/CircusCharlie/blob/main/Assets/Scripts/SoundManager.cs) : 게임 음악 관리 스크립트
+
 [SettingManager](https://github.com/kchun0513/CircusCharlie/blob/main/Assets/Scripts/SettingManager.cs) : 게임 설정 관리 스크립트
+
 [ThirdPersonController](https://github.com/kchun0513/CircusCharlie/blob/main/Assets/Scripts/ThirdPersonController.cs) : 플레이어 조종 스크립트, StarterAssets 에셋 기반
-    - [DetectShakeGesture()](https://github.com/kchun0513/CircusCharlie/blob/main/Assets/Scripts/ThirdPersonController.cs#L555) : 컨트롤러 내리기 감지 메서드
-    - [DetectPullGesture()](https://github.com/kchun0513/CircusCharlie/blob/main/Assets/Scripts/ThirdPersonController.cs#L581) : 컨트롤러 당기기 감지 메서드
-    - [GetMoveRotation()](https://github.com/kchun0513/CircusCharlie/blob/main/Assets/Scripts/ThirdPersonController.cs#L376) : 기기 회전값
+
+- [DetectShakeGesture()](https://github.com/kchun0513/CircusCharlie/blob/main/Assets/Scripts/ThirdPersonController.cs#L555) : 컨트롤러 내리기 감지 메서드
+- [DetectPullGesture()](https://github.com/kchun0513/CircusCharlie/blob/main/Assets/Scripts/ThirdPersonController.cs#L581) : 컨트롤러 당기기 감지 메서드
+- [GetMoveRotation()](https://github.com/kchun0513/CircusCharlie/blob/main/Assets/Scripts/ThirdPersonController.cs#L376) : 기기 회전값
+    
 [PlayerManager](https://github.com/kchun0513/CircusCharlie/blob/main/Assets/Scripts/PlayerManager.cs) : 플레이어-오브젝트 접촉 관리 및 스테이지별 점수 관리 목적 스크립트
+
 [ObjGenController](https://github.com/kchun0513/CircusCharlie/blob/main/Assets/Scripts/ObjGenController.cs) : 오브젝트 생성 관리 스크립트
+
 [ObjectController](https://github.com/kchun0513/CircusCharlie/blob/main/Assets/Scripts/ObjectController.cs) : 오브젝트 움직임 관리 스크립트
+
 [BalanceManager](https://github.com/kchun0513/CircusCharlie/blob/main/Assets/Scripts/BalanceManager.cs) : 스테이지2 컨트롤러 밸런스 관리 스크립트
+
 [WhipEffect](https://github.com/kchun0513/CircusCharlie/blob/main/Assets/Scripts/WhipEffect.cs) : 채찍 효과 재생 스크립트
+
 [StandSpawner](https://github.com/kchun0513/CircusCharlie/blob/main/Assets/Scripts/StandSpawner.cs) : 원형 다층 관중석 자동 배치 스크립트
+
 
 
 
